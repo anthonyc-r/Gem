@@ -1,6 +1,7 @@
 /* 
    Copyright (C) 2010, 2011, 2012, 2013, 2014 German A. Arias <germanandre@gmx.es>
-
+   Copyright (C) 2020 Anthony Cohn-Richardby <anthonyc@gmx.co.uk>
+	
    This file is part of Gemas application
 
    Gemas is free software; you can redistribute it and/or
@@ -22,6 +23,7 @@
 #import <Foundation/Foundation.h>
 #import "GemasDocument.h"
 #import <HighlighterKit/HighlighterKit.h>
+#import <Preferences.h>
 
 @interface GemasEditorView (Private)
 
@@ -124,15 +126,7 @@
 
 - (void) insertSpace
 {
-  switch ([[NSUserDefaults standardUserDefaults] integerForKey: @"Indentation"])
-    {
-    case 0: // 2 spaces
-      [super insertText: @"  "];
-      break;
-    case 1: // 4 spaces
-      [super insertText: @"    "];
-      break;
-    }
+  [super insertText: [Preferences indentation]];
 }
 
 @end
@@ -340,8 +334,6 @@
   else
     {
       unichar lastChar;
-      NSInteger tab = [[NSUserDefaults standardUserDefaults]
-                        integerForKey: @"Indentation"];
       /* checkline is the last line with all spaces removed. So we can check the
          precense of reserved words, without worries about spaces. */
       NSString *checkLine = [lastLine stringByReplacingOccurrencesOfString: @" "
@@ -368,23 +360,8 @@
                ([checkLine hasPrefix: @"case"]) ||
                ([self isGSmarkupIndent: checkLine]))
         {
-          /* Check if last character is "&" or "|". If so, indent. For example, in the
-             case when the condition at one "if" as multiple lines. */
-          if ([otherIndentCharacters characterIsMember: lastChar] &&
-               ![type isEqualToString: @"GSmarkup"])
-            {
-              spaceToInsert = [spaceToInsert stringByAppendingString: @"   "];
-            }
-          
-          if (tab == 0)
-            {
-              spaceToInsert = [spaceToInsert stringByAppendingString: @"  "];
-            }
-          
-          if (tab == 1)
-            {
-              spaceToInsert = [spaceToInsert stringByAppendingString: @"    "];
-            }
+          spaceToInsert = [spaceToInsert stringByAppendingString: 
+                                         [Preferences indentation]];
         }
       else
         {
@@ -393,15 +370,8 @@
               ([checkLine hasSuffix: @"break;"]) ||
               ([self isGSmarkupBackIndent: checkLine]))
             {
-              if ((tab == 0) && ([spaceToInsert length] >= 2))
-                {
-                  spaceToInsert = [spaceToInsert stringByDeletingPrefix: @"  "];
-                }
-              
-              if ((tab == 1) && ([spaceToInsert length] >= 4))
-                {
-                  spaceToInsert = [spaceToInsert stringByDeletingPrefix: @"    "];
-                }
+              spaceToInsert = [spaceToInsert stringByDeletingPrefix:
+                                             [Preferences indentation]];
             }
           // Take care with "switch" sentence.
           else if ( !([indentCharacters characterIsMember: lastChar] &&
@@ -416,15 +386,8 @@
                     
                   if (space != nil)
                     {
-                      if (tab == 0)
-                        {
-                          spaceToInsert = [space stringByAppendingString: @"  "];
-                        }
-                      
-                      if (tab == 1)
-                        {
-                          spaceToInsert = [space stringByAppendingString: @"    "];
-                        }
+                      spaceToInsert = [space stringByAppendingString:
+                                             [Preferences indentation]];
                     }
                 }
             }
@@ -528,8 +491,6 @@
           NSCharacterSet *spaces = [NSCharacterSet whitespaceCharacterSet];
           NSCharacterSet *charsLine = [NSCharacterSet characterSetWithCharactersInString:
                                                       lastLine];
-          NSInteger tab = [[NSUserDefaults standardUserDefaults]
-                            integerForKey: @"Indentation"];
 
           // Check if is a gsmarkup case.
           if ([[lastLine stringByTrimmingLeadSpaces] isEqualToString: @"<"] && 
@@ -571,44 +532,22 @@
           //Check if is a gsmarkup character
           if (gsmarkup)
             {
-              // GSmarkup backIndent
-              if ((tab == 0) && ([stringToReplace length] >= 3))
-                {
-                  stringToReplace = [stringToReplace stringByDeletingPrefix: @"  "];
-                }
-              
-              if ((tab == 1) && ([stringToReplace length] >= 5))
-                {
-                  stringToReplace = [stringToReplace stringByDeletingPrefix: @"    "];
-                }
+              stringToReplace = [stringToReplace stringByDeletingPrefix: 
+                                                 [Preferences indentation]];
             }
           // Back indent with "break".
           else if (backIndent)
             {
-              if (tab == 0)
-                {
-                  stringToReplace = [stringToReplace stringByReplacingString: @"break"
-                                                     withString: @"  break"];
-                }
-              
-              if (tab == 1)
-                {
-                  stringToReplace = [stringToReplace stringByReplacingString: @"break"
-                                                     withString: @"    break"];
-                }
+              NSString *replacement = [NSString stringWithFormat: @"%@break",
+                                                [Preferences indentation]];
+              stringToReplace = [stringToReplace stringByReplacingString: @"break"
+                                                     withString: replacement];
             }
           // Back indent with "case", when the user add other "case" in current line.
           else if (backIndentCase)
             {
-              if ((tab == 0) && ([stringToReplace length] >= 2))
-                {
-                  stringToReplace = [stringToReplace stringByDeletingPrefix: @"  "];
-                }
-              
-              if ((tab == 1) && ([stringToReplace length] >= 4))
-                {
-                  stringToReplace = [stringToReplace stringByDeletingPrefix: @"    "];
-                }
+              stringToReplace = [stringToReplace stringByDeletingPrefix: 
+                                                 [Preferences indentation]];
             }
           // Check backindent for characters "{" after close a multiline condition.
           else if ([indentCharacters characterIsMember: [string characterAtIndex: 0]])
@@ -641,15 +580,8 @@
                  backindent automatically. */
               if (![[prevLine stringByTrimmingTailSpaces] hasSuffix: @"break;"])
                 {
-                  if ((tab == 0) && ([stringToReplace length] >= 2))
-                    {
-                      stringToReplace = [stringToReplace stringByDeletingPrefix: @"  "];
-                    }
-                  
-                  if ((tab == 1) && ([stringToReplace length] >= 4))
-                    {
-                      stringToReplace = [stringToReplace stringByDeletingPrefix: @"    "];
-                    }
+                  stringToReplace = [stringToReplace stringByDeletingPrefix: 
+                                                     [Preferences indentation]];
                   
                   // Backindent if the user insert "}".
                   if ([backIndentCharacters characterIsMember:

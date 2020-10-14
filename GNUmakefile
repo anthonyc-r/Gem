@@ -43,7 +43,8 @@ Gemas_HEADER_FILES = \
 GemasController.h \
 GemasEditorView.h \
 GemasDocument.h \
-EditorWindow.h
+EditorWindow.h \
+Preferences.h
 
 
 # Class files
@@ -51,7 +52,8 @@ Gemas_OBJC_FILES = \
 GemasController.m \
 GemasEditorView.m \
 GemasDocument.m \
-EditorWindow.m
+EditorWindow.m \
+Preferences.m
 
 
 # Other sources

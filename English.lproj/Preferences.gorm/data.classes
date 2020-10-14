@@ -9,11 +9,12 @@
 	    "changeEditorWidth:",
 	    "changeFontName:",
 	    "changeFontSize:",
+	    "changeHighlighterTheme:",
 	    "changeIndentation:",
 	    "changeSelectionColor:",
 	    "changeTabConversion:",
 	    "changeTextColor:",
-	    "changeHighlighterTheme:",
+	    "changeTabWidth:",
 	    "restoreDefaults:"
 	);
 	Super = NSObject;
@@ -32,7 +33,8 @@
 	    "changeEditorWidth:",
 	    "changeAutosavingDelay:",
 	    "restoreDefaults:",
-	    "changeHighlighterTheme:"
+	    "changeHighlighterTheme:",
+	    "changeTabWidth:"
 	);
 	Outlets = (
 	    tabConversion,
@@ -49,7 +51,8 @@
 	    editorWidth,
 	    autosavingDelayStepper,
 	    highlighterTheme,
-	    fontSizeStepper
+	    fontSizeStepper,
+	    tabWidth
 	);
 	Super = NSObject;
     };

@@ -1,5 +1,6 @@
 /* 
    Copyright (C) 2010, 2011, 2012, 2013 German A. Arias <german@xelalug.org>
+   Copyright (C) 2020 Anthony Cohn-Richardby <anthonyc@gmx.co.uk>
 
    This file is part of Gemas application
 
@@ -22,6 +23,7 @@
 #import "GemasDocument.h"
 #import "GemasEditorView.h"
 #import "GNUstepGUI/GSTheme.h"
+#import "Preferences.h"
 #import <Foundation/NSUserDefaults.h>
 #import <HighlighterKit/HighlighterKit.h>
 
@@ -61,7 +63,7 @@
       [textView setBackgroundColor: [NSColor whiteColor]];
     }
 
-  data = [df dataForKey: @"EditorInsertionPointColor"];
+ data = [df dataForKey: @"EditorInsertionPointColor"];
   if (data != nil)
     {
       [textView setInsertionPointColor: [NSKeyedUnarchiver unarchiveObjectWithData: data]];
@@ -100,6 +102,35 @@
 
   //Set the syntax highlighter again
   [textView createSyntaxHighlighterForFileType: [self fileType]];
+  
+  NSMutableParagraphStyle *paragraphStyle = [[textView defaultParagraphStyle] mutableCopy];
+  if (paragraphStyle == nil) {
+    paragraphStyle = [[NSMutableParagraphStyle alloc] init]; 
+  }
+  AUTORELEASE(paragraphStyle);
+  int nspaces = [Preferences tabWidthSpaces];
+  float charWidth = [[[textView font]
+                          screenFontWithRenderingMode:NSFontDefaultRenderingMode]
+                          advancementForGlyph:(NSGlyph) ' '].width;
+  [paragraphStyle setDefaultTabInterval: nspaces * charWidth];
+  // Workaround for versions of gnustep-gui without default tab fix
+  NSMutableArray *tabstops = [NSMutableArray array];
+  NSTextTab *tab;
+  for (int i = 0; i < 10; i++) {
+    tab = [[NSTextTab alloc] initWithTextAlignment: NSTextAlignmentLeft
+      location: i * charWidth * nspaces options: nil];
+    AUTORELEASE(tab);
+    [tabstops addObject: tab];
+  }
+  [paragraphStyle setTabStops: tabstops];
+  [textView setDefaultParagraphStyle: paragraphStyle];
+  
+  NSMutableDictionary* typingAttributes = [[textView typingAttributes] mutableCopy];
+  [typingAttributes setObject:paragraphStyle forKey:NSParagraphStyleAttributeName];
+  [typingAttributes setObject:[textView font] forKey:NSFontAttributeName];
+  [textView setTypingAttributes:typingAttributes];
+  [[textView textStorage] addAttributes: typingAttributes 
+    range: NSMakeRange(0, [[textView string] length])];
 
   [textView setNeedsDisplay: YES];
 }

@@ -1,6 +1,6 @@
 /* 
    Copyright (C) 2010, 2011, 2012, 2013 German A. Arias <german@xelalug.org>
-
+   Copyright (C) 2020 Anthony Cohn-Richardby <anthonyc@gmx.co.uk>
    This file is part of Gemas application
 
    Gemas is free software; you can redistribute it and/or
@@ -24,6 +24,7 @@
 #import <HighlighterKit/HighlighterKit.h>
 #import "GemasController.h"
 #import "GemasDocument.h"
+#import "Preferences.h"
 
 #define POST_CHANGE \
   [[NSNotificationCenter defaultCenter] \
@@ -291,7 +292,8 @@
       df = [NSUserDefaults standardUserDefaults];
 
       //Editing
-      [indentation selectItemAtIndex: [df integerForKey: @"Indentation"]];
+      [indentation selectItemAtIndex: [Preferences indentationType]];
+      [tabWidth selectItemAtIndex: [Preferences tabWidth]];
 
       [tabConversion selectItemAtIndex: [df integerForKey: @"TabConversion"]]; 
 
@@ -425,10 +427,7 @@
 
 - (void) changeIndentation: (id)sender
 {
-  [[NSUserDefaults standardUserDefaults]
-    setInteger: [indentation indexOfSelectedItem]
-        forKey: @"Indentation"];
-
+  [Preferences setIndentationType: (IndentationType)[sender indexOfSelectedItem]];
   POST_CHANGE;
 }
 
@@ -439,6 +438,11 @@
         forKey: @"TabConversion"];
 }
 
+- (void) changeTabWidth: (id)sender
+{
+  [Preferences setTabWidth: (TabWidth)[sender indexOfSelectedItem]];  
+  POST_CHANGE; 
+}
 
 //Looks
 
