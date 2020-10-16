@@ -431,13 +431,6 @@
   POST_CHANGE;
 }
 
-- (void) changeTabConversion: (id)sender
-{
-  [[NSUserDefaults standardUserDefaults]
-    setInteger: [tabConversion indexOfSelectedItem]
-        forKey: @"TabConversion"];
-}
-
 - (void) changeTabWidth: (id)sender
 {
   [Preferences setTabWidth: (TabWidth)[sender indexOfSelectedItem]];  
@@ -565,7 +558,6 @@
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
   
   [defaults removeObjectForKey: @"Indentation"];
-  [defaults removeObjectForKey: @"TabConversion"];
   [defaults removeObjectForKey: @"EditorInsertionPointColor"];
   [defaults removeObjectForKey: @"EditorTextColor"];
   [defaults removeObjectForKey: @"EditorBackgroundColor"];

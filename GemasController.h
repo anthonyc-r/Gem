@@ -66,7 +66,6 @@
 
 //Preferences for coding
 - (void) changeIndentation: (id)sender;
-- (void) changeTabConversion: (id)sender;
 - (void) changeTabWidth: (id)sender;
 
 //Preferenes for look

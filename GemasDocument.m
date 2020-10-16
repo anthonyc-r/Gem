@@ -173,25 +173,7 @@
   NSString *aString = [NSString stringWithContentsOfFile: fileName];
 
   if (aString != nil)
-    {
-      if (![fileType isEqualToString: @"GNUmakefile"])
-        {
-          NSInteger tab = [[NSUserDefaults standardUserDefaults]
-                                       integerForKey: @"TabConversion"];
-          
-          switch (tab)
-            {
-            case 0:
-              aString = [aString stringByReplacingOccurrencesOfString: @"\t"
-                                 withString: @"\t\t\t"];
-              break;
-            case 1:
-              aString = [aString stringByReplacingOccurrencesOfString: @"\t"
-                                 withString: @"\t\t"];
-              break;
-            }
-        }
-      
+    { 
       ASSIGN (string, aString);
 
       return YES;
@@ -207,24 +189,9 @@
 {
   BOOL result;
   NSString *aString;
-  NSInteger tab = [[NSUserDefaults standardUserDefaults]
-                                       integerForKey: @"TabConversion"];
   
   [textView breakUndoCoalescing];
   aString = [textView string];
-  
-  switch (tab)
-    {
-    case 0:
-      aString = [aString stringByReplacingOccurrencesOfString: @"\t\t\t"
-                         withString: @"\t"];
-      break;
-    case 1:
-      aString = [aString stringByReplacingOccurrencesOfString: @"\t\t"
-                         withString: @"\t"];
-      break;
-    }
-  
   result = [aString writeToFile: fileName atomically: NO];
 
   return result;
@@ -313,27 +280,10 @@
   NSString *aString = [NSString stringWithContentsOfURL: url];
   NSMutableDictionary *typingAttrs;
   
-  if (aString != nil)
-    {
-      NSInteger tab = [[NSUserDefaults standardUserDefaults]
-                        integerForKey: @"Indentation"];
-      
-      switch (tab)
-        {
-        case 0:
-          aString = [aString stringByReplacingOccurrencesOfString: @"\t"
-                             withString: @"\t\t\t"];
-          break;
-        case 1:
-          aString = [aString stringByReplacingOccurrencesOfString: @"\t"
-                             withString: @"\t\t"];
-          break;
-        }
-    }
-  else
-    {
-      return NO;
-    }
+  if (aString == nil)
+   {
+     return NO;
+   }
   
   /* turn off ligatures */
   typingAttrs = [[[textView typingAttributes] mutableCopy] autorelease];
