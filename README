@@ -1,31 +1,7 @@
-Welcome to Gemas 0.3!
+Gem is a simple editor app, based off of the source code for Gemas 0.4, which you can find here:
 
+http://wiki.gnustep.org/index.php/Gemas.app
 
-WHAT IS IT
-==========
+Currently this just removes some implicit file edits for 'emacs mode', I think  modifications like this should absolutely be avoided. Additionally it adds support for real tabs, and variable tab widths (if set to use spaces, it will use this number of spaces instead).
 
-Gemas.app is a simple but powerfull code editor for GNUstep.
-It have autoindentation and highlight syntax for C, C++, Objective-C, 
-Objective-C++, GSmarkup. And to edit Strings, Plist, GNUmakefile, 
-ChangeLog files and plain text files (INSTALL, README, ...).
-Gemas.app use the HighlighterKit framework of Saso Kiselkov.
-
-
-COPYING
-=======
-
-This program is free software, released under GPLv3, or 
-(at your option) any later version.
-
-
-AUTHOR
-======
-
-German A. Arias <german@xelalug.org>
-
-
-COMPILING
-=========
-
-Please check the 'INSTALL' file.
-
+Going forward, I intend to add more flexible editor options, such as;  enable/disable autoindent, per-filetype preferences, line numbers. I'll also take a look at improving performance if possible.
