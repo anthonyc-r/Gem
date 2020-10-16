@@ -3,26 +3,28 @@ include $(GNUSTEP_MAKEFILES)/common.make
 
 # Application
 VERSION = 0.4
-PACKAGE_NAME = Gemas
-APP_NAME = Gemas
-Gemas_APPLICATION_ICON = Gemas.tiff
+PACKAGE_NAME = Gem
+APP_NAME = Gem
+Gem_APPLICATION_ICON = Gemas.tiff
 
 # Languages
-Gemas_LANGUAGES = \
+Gem_LANGUAGES = \
   English \
   Spanish
 
-Gemas_LOCALIZED_RESOURCE_FILES = \
-Gemas.gorm \
+Gem_LOCALIZED_RESOURCE_FILES = \
+Gem.gorm \
 Editor.gorm \
 Preferences.gorm \
 GoToLine.gorm \
 Localizable.strings
 
 # Resource files
-Gemas_RESOURCE_FILES = \
+Gem_RESOURCE_FILES = \
 Resources/Gemas.tiff \
+Resources/Gem.tiff \
 Resources/Gemas.ico \
+Resources/Gem.ico \
 Resources/FileIcon_.c.tiff \
 Resources/FileIcon_.cc.tiff \
 Resources/FileIcon_.gsmarkup.tiff \
@@ -39,7 +41,7 @@ Resources/words.plist
 
 
 # Header files
-Gemas_HEADER_FILES = \
+Gem_HEADER_FILES = \
 GemasController.h \
 GemasEditorView.h \
 GemasDocument.h \
@@ -48,7 +50,7 @@ Preferences.h
 
 
 # Class files
-Gemas_OBJC_FILES = \
+Gem_OBJC_FILES = \
 GemasController.m \
 GemasEditorView.m \
 GemasDocument.m \
@@ -57,7 +59,7 @@ Preferences.m
 
 
 # Other sources
-Gemas_OBJC_FILES += \
+Gem_OBJC_FILES += \
 Gemas_main.m
 
 

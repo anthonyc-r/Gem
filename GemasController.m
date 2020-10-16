@@ -37,6 +37,7 @@
 
 - (void) awakeFromNib
 {
+  NSLog(@"awake!");
   //GSmarkupBrowser = nil;
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
   NSTimeInterval delay = [defaults integerForKey: @"AutosavingDelay"];  
