@@ -295,8 +295,12 @@
       //Editing
       [indentation selectItemAtIndex: [Preferences indentationType]];
       [tabWidth selectItemAtIndex: [Preferences tabWidth]];
+    	 if ([Preferences autoIndentEnabled]) {
+    	   [autoIndent setState: NSOnState];
+    	 }
 
       [tabConversion selectItemAtIndex: [df integerForKey: @"TabConversion"]]; 
+    
 
       //Looks
       data = [df dataForKey: @"EditorTextColor"];
@@ -436,6 +440,15 @@
 {
   [Preferences setTabWidth: (TabWidth)[sender indexOfSelectedItem]];  
   POST_CHANGE; 
+}
+
+- (void) changeAutoIndentEnabled: (id)sender {
+  NSLog(@"changed auto indent state");
+	 BOOL enabled = [sender state] == NSOnState;
+	 if (enabled) {
+ 	   NSLog(@"Now enabled");
+ 	 }
+  [Preferences setAutoIndentEnabled: enabled];
 }
 
 //Looks

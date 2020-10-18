@@ -14,33 +14,26 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+#ifndef _OBJCAUTOINDENTER_H
+#define _OBJCAUTOINDENTER_H
  
- #include <Foundation/Foundation.h>
+#include <Foundation/Foundation.h>
+#include "InputModifiable.h"
  
- typedef enum {
-     IndentationTypeTabs,
-     IndentationTypeSpaces
- } IndentationType;
- 
- typedef enum {
-     TabWidthTwo,
-     TabWidthFour,
-     TabWidthEight
- } TabWidth;
- 
- @interface Preferences: NSObject {
-     
- }
- 
- +(NSString*)indentation;
- +(int)tabWidthSpaces;
- +(BOOL)autoIndentEnabled;
- 
+@interface ObjcAutoIndenter: NSObject {
+	 id type;
+	 id nonEnglishCharacters;
+	 id backIndentCharacters;
+	 id indentCharacters;
+	 id otherIndentCharacters;
+}
 
- +(TabWidth)tabWidth;
- +(IndentationType)indentationType;
- +(void)setIndentationType: (IndentationType)newValue;
- +(void)setTabWidth: (TabWidth)newValue;
- +(void)setAutoIndentEnabled: (BOOL)newValue;
-  
- @end
+-(void)setType: (NSString*)newValue;
+-(BOOL)modifyInput: (NSString*)input forModifiable: (id<InputModifiable>)view;
+-(BOOL)modifyNewline: (id<InputModifiable>)view;
+-(BOOL)modifyTab: (id<InputModifiable>)view;
+
+@end
+
+#endif
+ 

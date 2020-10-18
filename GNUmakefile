@@ -46,7 +46,9 @@ GemasController.h \
 GemasEditorView.h \
 GemasDocument.h \
 EditorWindow.h \
-Preferences.h
+Preferences.h \
+InputModifiers/ObjcAutoIndenter.h \
+InputModifiers/InputModifiable.h 
 
 
 # Class files
@@ -55,7 +57,8 @@ GemasController.m \
 GemasEditorView.m \
 GemasDocument.m \
 EditorWindow.m \
-Preferences.m
+Preferences.m \
+InputModifiers/ObjcAutoIndenter.m
 
 
 # Other sources

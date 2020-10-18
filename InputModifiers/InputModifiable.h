@@ -14,33 +14,18 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+#ifndef _INPUTMODIFIABLE_H
+#define _INPUTMODIFIABLE_H
  
- #include <Foundation/Foundation.h>
+#include <Foundation/Foundation.h>
  
- typedef enum {
-     IndentationTypeTabs,
-     IndentationTypeSpaces
- } IndentationType;
+@protocol InputModifiable
  
- typedef enum {
-     TabWidthTwo,
-     TabWidthFour,
-     TabWidthEight
- } TabWidth;
+-(void)modifyInputByReplacingRange: (NSRange)aRange withString: (NSString*)aString;
+-(void)modifyInputByInserting: (NSString*)aString;
+-(NSString*)inputModifiableString;
+-(int)inputModifiableCursor;
  
- @interface Preferences: NSObject {
-     
- }
- 
- +(NSString*)indentation;
- +(int)tabWidthSpaces;
- +(BOOL)autoIndentEnabled;
- 
+@end
 
- +(TabWidth)tabWidth;
- +(IndentationType)indentationType;
- +(void)setIndentationType: (IndentationType)newValue;
- +(void)setTabWidth: (TabWidth)newValue;
- +(void)setAutoIndentEnabled: (BOOL)newValue;
-  
- @end
+#endif

@@ -44,6 +44,7 @@
   id fontSize;
   id fontSizeStepper;
   id tabWidth;
+  id autoIndent;
   
   //Size of editor
   id editorWidth;
@@ -67,6 +68,7 @@
 //Preferences for coding
 - (void) changeIndentation: (id)sender;
 - (void) changeTabWidth: (id)sender;
+- (void) changeAutoIndentEnabled: (id)sender;
 
 //Preferenes for look
 - (void) changeBackgroundColor: (id)sender;

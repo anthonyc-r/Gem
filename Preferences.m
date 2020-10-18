@@ -20,6 +20,7 @@
 
 #define KEY_INDENTATION @"identationSym"
 #define KEY_TABWIDTH @"tabWidth"
+#define KEY_AUTOINDENT @"autoindent"
 
 static NSString *indentation;
 static int lenForTabWidth(TabWidth tw) {
@@ -65,12 +66,20 @@ static void calculateIndentation() {
   return lenForTabWidth([self tabWidth]); 
 }
 
++(BOOL)autoIndentEnabled {
+  return [[NSUserDefaults standardUserDefaults] boolForKey: KEY_AUTOINDENT];
+}
+
 +(TabWidth)tabWidth {
   return [[NSUserDefaults standardUserDefaults] integerForKey: KEY_TABWIDTH];
 }
 
 +(IndentationType)indentationType {
   return [[NSUserDefaults standardUserDefaults] integerForKey: KEY_INDENTATION];
+}
+
++(void)setAutoIndentEnabled: (BOOL)newValue {
+  [[NSUserDefaults standardUserDefaults] setBool: newValue forKey: KEY_AUTOINDENT];
 }
 
 +(void)setIndentationType: (IndentationType)newValue {

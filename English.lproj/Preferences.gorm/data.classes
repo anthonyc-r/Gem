@@ -13,8 +13,9 @@
 	    "changeIndentation:",
 	    "changeSelectionColor:",
 	    "changeTabConversion:",
-	    "changeTextColor:",
 	    "changeTabWidth:",
+	    "changeTextColor:",
+	    "changeAutoIndentEnabled:",
 	    "restoreDefaults:"
 	);
 	Super = NSObject;
@@ -34,7 +35,8 @@
 	    "changeAutosavingDelay:",
 	    "restoreDefaults:",
 	    "changeHighlighterTheme:",
-	    "changeTabWidth:"
+	    "changeTabWidth:",
+	    "changeAutoIndentEnabled:"
 	);
 	Outlets = (
 	    tabConversion,
@@ -52,7 +54,8 @@
 	    autosavingDelayStepper,
 	    highlighterTheme,
 	    fontSizeStepper,
-	    tabWidth
+	    tabWidth,
+	    autoIndent
 	);
 	Super = NSObject;
     };
