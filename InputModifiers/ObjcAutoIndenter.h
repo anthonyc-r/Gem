@@ -28,6 +28,7 @@
 	 id otherIndentCharacters;
 }
 
+-(id)initWithFiletype: (NSString*)filetype;
 -(void)setType: (NSString*)newValue;
 -(BOOL)modifyInput: (NSString*)input forModifiable: (id<InputModifiable>)view;
 -(BOOL)modifyNewline: (id<InputModifiable>)view;

@@ -23,113 +23,9 @@
 #import <Foundation/Foundation.h>
 #import "GemasDocument.h"
 #import <HighlighterKit/HighlighterKit.h>
-#import <Preferences.h>
-
-@interface GemasEditorView (Private)
-
-- (NSString *) indentForCloseBracket;
-- (BOOL) isGSmarkupIndent: (NSString *)string;
-- (BOOL) isGSmarkupBackIndent: (NSString *)string;
-- (void) insertSpace;
-
-@end
-
-@implementation GemasEditorView (Private)
-
-- (NSString *) indentForCloseBracket
-{
-  NSUInteger start;
-  NSString *selection = @"}", *search = @"{" ;
-  NSRange firstClose, firstOpen;
-  NSRange textRange = [self selectedRange];
-  
-  NSString *contextA, *contextB, *sub;
-  NSString *context = [[self string] substringFromRange: NSMakeRange(0, textRange.location)];
-  
-  firstOpen = [context rangeOfString: search options: NSBackwardsSearch];
-  firstClose = [context rangeOfString: selection options: NSBackwardsSearch];
-  
-  // If no open bracket return nil.
-  if (firstOpen.location == NSNotFound)
-    {
-      return nil;
-    }
-
-  while ((firstOpen.location < firstClose.location) &&
-               (firstClose.length != 0) && (firstClose.length != 0))
-    {
-      contextA = [[self string] substringFromRange: NSMakeRange(0, firstOpen.location)];
-      contextB = [[self string] substringFromRange: NSMakeRange(0, firstClose.location)];
-      
-      firstOpen = [contextA rangeOfString: search options: NSBackwardsSearch];
-      firstClose = [contextB rangeOfString: selection options: NSBackwardsSearch];
-    }
-  
-  // If there isn't a corresponding open bracket return nil.
-  if (firstOpen.location == NSNotFound)
-    {
-      return nil;
-    }
-  
-  start = [[[self string] substringToIndex: firstOpen.location]
-                                          rangeOfCharacterFromSet: [NSCharacterSet newlineCharacterSet]
-                                                                            options: NSBackwardsSearch].location;
-  
-  if (start == NSNotFound)
-    {
-      start = -1;
-    }
-  
-  sub = [[self string] substringFromRange: NSMakeRange(start + 1, firstOpen.location - start - 1)];
-  
-  if ([[sub stringByTrimmingLeadSpaces] length] > 0)
-    {
-      return nil;
-    }
-  else
-    {
-      return sub;
-    }
-}
-
-- (BOOL) isGSmarkupIndent: (NSString *)string
-{
-  if ([type isEqualToString: @"GSmarkup"])
-    {
-      if ([string hasPrefix: @"<"] &&
-          [string hasSuffix: @">"] &&
-          ![string hasPrefix: @"<!"] &&
-          ![string hasPrefix: @"<?"] &&
-          ![string hasPrefix: @"</"] &&
-          ![string hasSuffix: @"/>"] &&
-          ![string hasSuffix: @"</label>"] &&
-          ![string hasSuffix: @"</textField>"] &&
-          ![string hasSuffix: @"</secureTextField>"])
-        {
-          return YES;
-        }
-      else
-        {
-          return NO;
-        }
-    }
-  else
-    {
-      return NO;
-    }
-}
-
-- (BOOL) isGSmarkupBackIndent: (NSString *)string
-{
-  return NO;
-}
-
-- (void) insertSpace
-{
-  [super insertText: [Preferences indentation]];
-}
-
-@end
+#import "Preferences.h"
+#import "InputModifiers/ObjcAutoIndenter.h"
+#import "InputModifiers/InputModifiable.h"
 
 @implementation GemasEditorView
 
@@ -138,32 +34,18 @@
   TEST_RELEASE(highlighter);
   TEST_RELEASE(openCharacters);
   TEST_RELEASE(closeCharacters);
-  TEST_RELEASE(indentCharacters);
-  TEST_RELEASE(backIndentCharacters);
-  TEST_RELEASE(otherIndentCharacters);
-  TEST_RELEASE(nonEnglishCharacters);
   TEST_RELEASE(type);
+	 RELEASE(autoIndenter);
   [super dealloc];
 }
 
 - (void) awakeFromNib
 {
   openCharacters = [NSCharacterSet characterSetWithCharactersInString: @"[{("];
-  [openCharacters retain];
+  RETAIN(openCharacters);
   closeCharacters = [NSCharacterSet characterSetWithCharactersInString: @"]})"];
-  [closeCharacters retain];
-  indentCharacters = [NSCharacterSet characterSetWithCharactersInString: @"{"];
-  [indentCharacters retain];
-  backIndentCharacters = [NSCharacterSet characterSetWithCharactersInString: @"}"];
-  [backIndentCharacters retain];
-  otherIndentCharacters = [NSCharacterSet characterSetWithCharactersInString: @"|&"];
-  [otherIndentCharacters retain];
-  
-  //Dictionary for foreing characters
-  NSBundle *bundle = [NSBundle mainBundle];
-  nonEnglishCharacters = [NSDictionary dictionaryWithContentsOfFile:
-                           [bundle pathForResource: @"nonEnglishCharacters" ofType: @"plist"]];
-  [nonEnglishCharacters retain];
+  RETAIN(closeCharacters);
+  autoIndenter = [[ObjcAutoIndenter alloc] initWithFiletype: type];
 }
 
 - (void) drawRect: (NSRect) frame
@@ -229,387 +111,21 @@
 //Insert the correponding indentation when the user press Tab key
 - (void) insertTab: (id)sender
 {
-  if (![type isEqualToString: @"GNUmakefile"] && [sender tag] != 500)
-    {
-      NSString *lastLine, *previousLine = nil;
-      NSRange textRange;
-      NSArray *lines;
-      
-      textRange = [self selectedRange];
-      lines = [[[self string] substringFromRange: NSMakeRange(0, textRange.location)]
-                     componentsSeparatedByString: @"\n"];
-      
-      lastLine = [lines objectAtIndex: [lines count] - 1];
-      
-      if ([lines count] >= 2)
-        {
-          previousLine = [lines objectAtIndex: [lines count] - 2];
-        }
-      
-      if (previousLine != nil)
-        {
-          NSRange loc = [previousLine rangeOfString: @":"
-                                            options: NSBackwardsSearch];
-          
-          if (loc.location != NSNotFound)
-            {
-              previousLine = [previousLine substringToIndex: loc.location];
-
-              loc = [previousLine rangeOfString: @" "
-                                        options: NSBackwardsSearch];
-              
-              if (loc.location != NSNotFound)
-                {
-                  NSUInteger lg;
-                  NSString *insert;
-                  
-                  if ( (loc.location + 1) > [lastLine length])
-                    {
-                      lg = (loc.location + 1) - [lastLine length];
-
-                      insert = [@"" stringByPaddingToLength: lg
-                                                 withString: @" "
-                                            startingAtIndex: 0];
-                      
-                      [super insertText: insert];
-                    }
-                  else
-                    {
-                      [self insertSpace];
-                    }
-                }
-              else
-                {
-                  [self insertSpace];
-                }
-            }
-          else
-            {
-              [self insertSpace];
-            }          
-        }
-      else
-        {
-          [self insertSpace];
-        }
-    }
-  else
-    {
-      [super insertTab: sender];
-    }
+	 NSLog(@"tab");
+	 [autoIndenter modifyTab: self];
 }
 
 //If the new line need indentation, add it
 - (void) insertNewline: (id)sender
 {
-  NSString *spaceToInsert, *previousLine = nil;
-  NSString *lastLine;
-  NSRange textRange;
-  NSArray *lines;
-  
-  [super insertNewline: sender];
-  
-  textRange = [self selectedRange];
-  lines = [[[self string] substringFromRange: NSMakeRange(0, textRange.location)]
-                          componentsSeparatedByString: @"\n"];
-
-  // Get the previous line
-  if ([lines count] >= 3)
-    {
-      previousLine = [lines objectAtIndex: [lines count] - 3];
-      previousLine = [previousLine stringByReplacingOccurrencesOfString: @" "
-                                   withString: @""];
-    }
-
-  // Get last line
-  lastLine = [lines objectAtIndex: [lines count] - 2];
-
-  // If last line is empy, insert a space with the same length.  
-  if ([[NSCharacterSet whitespaceAndNewlineCharacterSet] isSupersetOfSet:
-               [NSCharacterSet characterSetWithCharactersInString: lastLine]])
-    {
-      spaceToInsert = [NSString stringWithString: lastLine];
-    }
-  // Else, insert a space according with the case.
-  else
-    {
-      unichar lastChar;
-      /* checkline is the last line with all spaces removed. So we can check the
-         precense of reserved words, without worries about spaces. */
-      NSString *checkLine = [lastLine stringByReplacingOccurrencesOfString: @" "
-                                      withString: @""];
-      
-      // Get the indent of last line.
-      spaceToInsert = [lastLine stringByDeletingSuffix:
-                                [lastLine stringByTrimmingLeadSpaces]];
-      
-      // Get last char in last line.
-      lastChar = [[lastLine stringByTrimmingTailSpaces] characterAtIndex:
-                            [[lastLine stringByTrimmingTailSpaces] length] - 1];
-      
-      // Indent according with reserved word or if is a gsmarkup indent.
-      if ((([indentCharacters characterIsMember: lastChar]) &&
-               (![previousLine hasPrefix: @"switch("])) ||
-               ([checkLine hasPrefix: @"if("]) ||
-               ([checkLine hasPrefix: @"else"]) ||
-               ([checkLine hasPrefix: @"while("] && ![previousLine hasPrefix: @"}"]) ||
-               ([checkLine hasPrefix: @"for("]) ||
-               ([checkLine isEqualToString: @"do"]) ||
-               ([checkLine isEqualToString: @"default:"]) ||
-               ([checkLine hasPrefix: @"switch("]) ||
-               ([checkLine hasPrefix: @"case"]) ||
-               ([self isGSmarkupIndent: checkLine]))
-        {
-          spaceToInsert = [spaceToInsert stringByAppendingString: 
-                                         [Preferences indentation]];
-        }
-      else
-        {
-          // Check if is a case of a backindent.
-          if (([backIndentCharacters characterIsMember: lastChar]) ||
-              ([checkLine hasSuffix: @"break;"]) ||
-              ([self isGSmarkupBackIndent: checkLine]))
-            {
-              spaceToInsert = [spaceToInsert stringByDeletingPrefix:
-                                             [Preferences indentation]];
-            }
-          // Take care with "switch" sentence.
-          else if ( !([indentCharacters characterIsMember: lastChar] &&
-               [previousLine hasPrefix: @"switch("]) )
-            {
-              /* Don't indent if the user is closing a multiline condition.
-                 For example, in an "if" sentence. */
-              if (![otherIndentCharacters characterIsMember: lastChar] &&
-                   lastChar != ')')
-                {
-                  NSString *space = [self indentForCloseBracket];
-                    
-                  if (space != nil)
-                    {
-                      spaceToInsert = [space stringByAppendingString:
-                                             [Preferences indentation]];
-                    }
-                }
-            }
-        }
-    }
-
-  [super insertText: spaceToInsert];
+	 NSLog(@"newline");
+	 [autoIndenter modifyNewline: self];
 }
 
 - (void) insertText: (id)string
 {
-  if ([string isKindOfClass: [NSString class]] && ([string length] > 0) )
-    {
-      /* Insert the corresponding code instead the character for non english
-         character. */
-      if ([type isEqualToString: @"Strings"] || [type isEqualToString: @"Plist"])
-        {
-          if ([[nonEnglishCharacters allKeys] containsObject: string])
-            {
-              [super insertText: [nonEnglishCharacters objectForKey: string]];
-            }
-          else if ([string length] > 1)
-            {
-              int x;
-              NSString *character;
-              for (x = 0; x < [string length]; x++)
-                {
-                  character = [string substringFromRange: NSMakeRange(x, 1)];
-                  
-                  if ([[nonEnglishCharacters allKeys] containsObject: character])
-                    {
-                      [super insertText: [nonEnglishCharacters objectForKey: character]];
-                    }
-                  else
-                    {
-                      [super insertText: character];
-                    }
-                }
-            }
-          else
-            {
-              [super insertText: string];
-            }
-        }
-      // Indent the line if user insert "*" in ChangeLog files.
-      else if ([type isEqualToString: @"ChangeLog"] && [string isEqualToString: @"*"])
-        {
-          NSRange textRange = [self selectedRange];
-          NSArray *lines = [[[self string]
-                              substringFromRange: NSMakeRange(0, textRange.location)]
-                              componentsSeparatedByString: @"\n"];
-          
-          if ([[lines objectAtIndex: [lines count] - 1] length] > 0)
-            {
-              [super insertText: string];
-            }
-          else
-            {
-              [super insertText: @"        *"];
-            }
-        }
-      // Indentation cases in Objective-C and GSmarkup.
-      else if (([backIndentCharacters characterIsMember: [string characterAtIndex: 0]]) ||
-               ([indentCharacters characterIsMember: [string characterAtIndex: 0]]) ||
-               ([otherIndentCharacters characterIsMember: [string characterAtIndex: 0]]) ||
-               ([string isEqualToString: @";"]) ||
-               ([string isEqualToString: @"c"]) ||
-               ([type isEqualToString: @"GSmarkup"] && [string isEqualToString: @"/"]))
-        {
-          BOOL gsmarkup = NO;
-          BOOL backIndent = NO;
-          BOOL backIndentCase = NO;
-          NSString *prevLine, *lastLine;
-          NSRange textRange = [self selectedRange];
-          NSArray *lines = [[[self string]
-                              substringFromRange: NSMakeRange(0, textRange.location)]
-                              componentsSeparatedByString: @"\n"];
-          
-          // Get previous line.                   
-          if ([lines count] >= 2)
-            {
-              prevLine = [lines objectAtIndex: [lines count] - 2];
-            }
-          else
-            {
-              prevLine = @"";
-            }
-          
-          // Get last line.
-          if ([lines count] >= 1)
-            {
-              lastLine = [lines objectAtIndex: [lines count] - 1];
-            }
-          else
-            {
-              lastLine = @"";
-            }
-          
-          int length;
-          NSString *stringToReplace;
-          NSCharacterSet *spaces = [NSCharacterSet whitespaceCharacterSet];
-          NSCharacterSet *charsLine = [NSCharacterSet characterSetWithCharactersInString:
-                                                      lastLine];
-
-          // Check if is a gsmarkup case.
-          if ([[lastLine stringByTrimmingLeadSpaces] isEqualToString: @"<"] && 
-              [type isEqualToString: @"GSmarkup"])
-            {
-              gsmarkup = YES;
-            }
-
-          // Check if is a backindent case with "break".
-          if ([[prevLine stringByTrimmingTailSpaces] hasSuffix: @"}"] &&
-              [[lastLine stringByTrimmingLeadSpaces] isEqualToString: @"break"] &&
-              [string isEqualToString: @";"])
-            {
-              backIndent = YES;
-            }
-          
-          // Check if is a backindent case with "case".
-          if ([[prevLine stringByTrimmingLeadSpaces] hasPrefix: @"case "] &&
-              [string isEqualToString: @"c"])
-            {
-              backIndentCase = YES;
-            }
-          
-          // Get the string to replace, if apply.  
-          if ((([lastLine length] == 0) || ([spaces isSupersetOfSet: charsLine])) ||
-                 gsmarkup ||
-                 backIndent)
-            {
-              stringToReplace = [NSString stringWithString: lastLine];
-            }
-          else
-            {
-              [super insertText: string];
-              return;
-            }
-          
-          length = [stringToReplace length];
-
-          //Check if is a gsmarkup character
-          if (gsmarkup)
-            {
-              stringToReplace = [stringToReplace stringByDeletingPrefix: 
-                                                 [Preferences indentation]];
-            }
-          // Back indent with "break".
-          else if (backIndent)
-            {
-              NSString *replacement = [NSString stringWithFormat: @"%@break",
-                                                [Preferences indentation]];
-              stringToReplace = [stringToReplace stringByReplacingString: @"break"
-                                                     withString: replacement];
-            }
-          // Back indent with "case", when the user add other "case" in current line.
-          else if (backIndentCase)
-            {
-              stringToReplace = [stringToReplace stringByDeletingPrefix: 
-                                                 [Preferences indentation]];
-            }
-          // Check backindent for characters "{" after close a multiline condition.
-          else if ([indentCharacters characterIsMember: [string characterAtIndex: 0]])
-            {
-              NSString *str = [[prevLine stringByTrimmingTailSpaces]
-                                                 stringByTrimmingLeadSpaces];
-              
-              if (![str hasPrefix: @"else if"] && ![str hasPrefix: @"if"] &&
-                   ![str hasPrefix: @"while"] && ![str hasPrefix: @"switch"] &&
-                   ![str hasPrefix: @"for"] && [str hasSuffix: @")"] &&
-                   ([stringToReplace length] >= 5))
-                {
-                  stringToReplace = [stringToReplace stringByDeletingPrefix: @"   "];
-                }
-            }
-          // Check indentation of a line in a multiline condition.
-          else if ([otherIndentCharacters characterIsMember: [string characterAtIndex: 0]])
-            {
-              NSString *str = [prevLine stringByTrimmingLeadSpaces];
-              
-              if ([str hasPrefix: @"else if"] || [str hasPrefix: @"if"] ||
-                   [str hasPrefix: @"while"])
-                {
-                  stringToReplace = [stringToReplace stringByAppendingString: @"   "];
-                }
-            }
-          else if (![string isEqualToString: @";"] && ![string isEqualToString: @"c"])
-            {
-              /* Back indent for "}", except after "break" which
-                 backindent automatically. */
-              if (![[prevLine stringByTrimmingTailSpaces] hasSuffix: @"break;"])
-                {
-                  stringToReplace = [stringToReplace stringByDeletingPrefix: 
-                                                     [Preferences indentation]];
-                  
-                  // Backindent if the user insert "}".
-                  if ([backIndentCharacters characterIsMember:
-                                            [string characterAtIndex: 0]])
-                    {
-                      NSString *space = [self indentForCloseBracket];
-                      
-                      if (space != nil)
-                        {
-                          stringToReplace = space;
-                        }
-                    }
-                }
-            }
-          
-          [self replaceCharactersInRange: NSMakeRange(textRange.location - length, length)
-                withString: stringToReplace];
-          [super insertText: string];
-        }
-      else
-        {
-          [super insertText: string];
-        }
-    }
-  else
-    {
-      [super insertText: string];
-    }
+	 NSLog(@"text");
+  [autoIndenter modifyInput: string forModifiable: self];
 }
 
 // Delete from the beginning of line to current position
@@ -842,6 +358,31 @@
     {
       [[self window] setMiniwindowImage: [NSImage imageNamed: @"common_Unknown"]];
     }
+}
+
+-(void)modifyInputByReplacingRange: (NSRange)aRange withString: (NSString*)aString {
+  [self replaceCharactersInRange: aRange withString: aString];
+}
+
+-(void)modifyInputByInserting: (NSString*)aString {
+	 NSLog(@"insert string: %@", aString);
+  [super insertText: aString];
+}
+
+-(void)modifyInputByInsertingTab {
+  [super insertTab: self];
+}
+
+-(void)modifyInputByInsertingNewline {
+  [super insertNewline: self];
+}
+
+-(NSString*)inputModifiableString {
+  return [self string];
+}
+
+-(int)inputModifiableCursor {
+  return [self selectedRange].location;
 }
 
 @end

@@ -136,6 +136,32 @@
  
 @implementation ObjcAutoIndenter
 
+-(id)initWithFiletype: (NSString*)filetype {
+  if (self = [super init]) {
+    indentCharacters = [NSCharacterSet characterSetWithCharactersInString: @"{"];
+    [indentCharacters retain];
+    backIndentCharacters = [NSCharacterSet characterSetWithCharactersInString: @"}"];
+    [backIndentCharacters retain];
+    otherIndentCharacters = [NSCharacterSet characterSetWithCharactersInString: @"|&"];
+    [otherIndentCharacters retain];
+  
+    //Dictionary for foreing characters
+    NSBundle *bundle = [NSBundle mainBundle];
+    nonEnglishCharacters = [NSDictionary dictionaryWithContentsOfFile:
+                           [bundle pathForResource: @"nonEnglishCharacters" ofType: @"plist"]];
+    [nonEnglishCharacters retain];
+  }
+  return self;
+}
+
+-(void)dealloc {
+  TEST_RELEASE(indentCharacters);
+  TEST_RELEASE(backIndentCharacters);
+  TEST_RELEASE(otherIndentCharacters);
+  TEST_RELEASE(nonEnglishCharacters);	
+  [super dealloc];
+}
+
 -(void)setType: (NSString*)newValue {
   ASSIGN(type, newValue);
 }
@@ -143,23 +169,23 @@
 -(BOOL)modifyInput: (NSString*)input forModifiable: (id<InputModifiable>)view {
 	 NSString *string = [view inputModifiableString];
 	 int cursor = [view inputModifiableCursor];
-  if ([string isKindOfClass: [NSString class]] && ([string length] > 0) )
+  if ([input isKindOfClass: [NSString class]] && ([input length] > 0) )
     {
       /* Insert the corresponding code instead the character for non english
          character. */
       if ([type isEqualToString: @"Strings"] || [type isEqualToString: @"Plist"])
         {
-          if ([[nonEnglishCharacters allKeys] containsObject: string])
+          if ([[nonEnglishCharacters allKeys] containsObject: input])
             {
-              [view modifyInputByInserting: [nonEnglishCharacters objectForKey: string]];
+              [view modifyInputByInserting: [nonEnglishCharacters objectForKey: input]];
             }
-          else if ([string length] > 1)
+          else if ([input length] > 1)
             {
               int x;
               NSString *character;
-              for (x = 0; x < [string length]; x++)
+              for (x = 0; x < [input length]; x++)
                 {
-                  character = [string substringFromRange: NSMakeRange(x, 1)];
+                  character = [input substringFromRange: NSMakeRange(x, 1)];
                   
                   if ([[nonEnglishCharacters allKeys] containsObject: character])
                     {
@@ -174,11 +200,11 @@
             }
           else
             {
-              [view modifyInputByInserting: string];
+              [view modifyInputByInserting: input];
             }
         }
       // Indent the line if user insert "*" in ChangeLog files.
-      else if ([type isEqualToString: @"ChangeLog"] && [string isEqualToString: @"*"])
+      else if ([type isEqualToString: @"ChangeLog"] && [input isEqualToString: @"*"])
         {
           NSArray *lines = [[string
                               substringFromRange: NSMakeRange(0, cursor)]
@@ -186,7 +212,7 @@
           
           if ([[lines objectAtIndex: [lines count] - 1] length] > 0)
             {
-              [view modifyInputByInserting: string];
+              [view modifyInputByInserting: input];
             }
           else
             {
@@ -194,12 +220,12 @@
             }
         }
       // Indentation cases in Objective-C and GSmarkup.
-      else if (([backIndentCharacters characterIsMember: [string characterAtIndex: 0]]) ||
-               ([indentCharacters characterIsMember: [string characterAtIndex: 0]]) ||
-               ([otherIndentCharacters characterIsMember: [string characterAtIndex: 0]]) ||
-               ([string isEqualToString: @";"]) ||
-               ([string isEqualToString: @"c"]) ||
-               ([type isEqualToString: @"GSmarkup"] && [string isEqualToString: @"/"]))
+      else if (([backIndentCharacters characterIsMember: [input characterAtIndex: 0]]) ||
+               ([indentCharacters characterIsMember: [input characterAtIndex: 0]]) ||
+               ([otherIndentCharacters characterIsMember: [input characterAtIndex: 0]]) ||
+               ([input isEqualToString: @";"]) ||
+               ([input isEqualToString: @"c"]) ||
+               ([type isEqualToString: @"GSmarkup"] && [input isEqualToString: @"/"]))
         {
           BOOL gsmarkup = NO;
           BOOL backIndent = NO;
@@ -208,7 +234,6 @@
           NSArray *lines = [[string
                               substringFromRange: NSMakeRange(0, cursor)]
                               componentsSeparatedByString: @"\n"];
-          
           // Get previous line.                   
           if ([lines count] >= 2)
             {
@@ -245,14 +270,14 @@
           // Check if is a backindent case with "break".
           if ([[prevLine stringByTrimmingTailSpaces] hasSuffix: @"}"] &&
               [[lastLine stringByTrimmingLeadSpaces] isEqualToString: @"break"] &&
-              [string isEqualToString: @";"])
+              [input isEqualToString: @";"])
             {
               backIndent = YES;
             }
           
           // Check if is a backindent case with "case".
           if ([[prevLine stringByTrimmingLeadSpaces] hasPrefix: @"case "] &&
-              [string isEqualToString: @"c"])
+              [input isEqualToString: @"c"])
             {
               backIndentCase = YES;
             }
@@ -266,7 +291,7 @@
             }
           else
             {
-              [view modifyInputByInserting: string];
+              [view modifyInputByInserting: input];
               return YES;
             }
           
@@ -293,7 +318,7 @@
                                                  [Preferences indentation]];
             }
           // Check backindent for characters "{" after close a multiline condition.
-          else if ([indentCharacters characterIsMember: [string characterAtIndex: 0]])
+          else if ([indentCharacters characterIsMember: [input characterAtIndex: 0]])
             {
               NSString *str = [[prevLine stringByTrimmingTailSpaces]
                                                  stringByTrimmingLeadSpaces];
@@ -307,7 +332,7 @@
                 }
             }
           // Check indentation of a line in a multiline condition.
-          else if ([otherIndentCharacters characterIsMember: [string characterAtIndex: 0]])
+          else if ([otherIndentCharacters characterIsMember: [input characterAtIndex: 0]])
             {
               NSString *str = [prevLine stringByTrimmingLeadSpaces];
               
@@ -317,7 +342,7 @@
                   stringToReplace = [stringToReplace stringByAppendingString: @"   "];
                 }
             }
-          else if (![string isEqualToString: @";"] && ![string isEqualToString: @"c"])
+          else if (![input isEqualToString: @";"] && ![input isEqualToString: @"c"])
             {
               /* Back indent for "}", except after "break" which
                  backindent automatically. */
@@ -328,7 +353,7 @@
                   
                   // Backindent if the user insert "}".
                   if ([backIndentCharacters characterIsMember:
-                                            [string characterAtIndex: 0]])
+                                            [input characterAtIndex: 0]])
                     {
                       NSString *space = [self indentForCloseBracket: view];
                       
@@ -342,26 +367,187 @@
           
           [view modifyInputByReplacingRange: NSMakeRange(cursor - length, length)
                 withString: stringToReplace];
-          [view modifyInputByInserting: string];
+          [view modifyInputByInserting: input];
         }
       else
         {
-          [view modifyInputByInserting: string];
+          [view modifyInputByInserting: input];
         }
     }
   else
     {
-      [view modifyInputByInserting: string];
+      [view modifyInputByInserting: input];
     }
   return YES;
 }
 
 -(BOOL)modifyNewline: (id<InputModifiable>)view {
-  return NO;
+  NSString *spaceToInsert, *previousLine = nil;
+  NSString *lastLine;
+  NSArray *lines;
+  NSString *string = [view inputModifiableString];
+  int cursor = [view inputModifiableCursor];
+  
+  [view modifyInputByInsertingNewline];
+
+  lines = [[string substringFromRange: NSMakeRange(0, cursor)]
+                          componentsSeparatedByString: @"\n"];
+
+  // Get the previous line
+  if ([lines count] >= 3)
+    {
+      previousLine = [lines objectAtIndex: [lines count] - 3];
+      previousLine = [previousLine stringByReplacingOccurrencesOfString: @" "
+                                   withString: @""];
+    }
+
+  // Get last line
+  lastLine = [lines objectAtIndex: [lines count] - 2];
+
+  // If last line is empy, insert a space with the same length.  
+  if ([[NSCharacterSet whitespaceAndNewlineCharacterSet] isSupersetOfSet:
+               [NSCharacterSet characterSetWithCharactersInString: lastLine]])
+    {
+      spaceToInsert = [NSString stringWithString: lastLine];
+    }
+  // Else, insert a space according with the case.
+  else
+    {
+      unichar lastChar;
+      /* checkline is the last line with all spaces removed. So we can check the
+         precense of reserved words, without worries about spaces. */
+      NSString *checkLine = [lastLine stringByReplacingOccurrencesOfString: @" "
+                                      withString: @""];
+      
+      // Get the indent of last line.
+      spaceToInsert = [lastLine stringByDeletingSuffix:
+                                [lastLine stringByTrimmingLeadSpaces]];
+      
+      // Get last char in last line.
+      lastChar = [[lastLine stringByTrimmingTailSpaces] characterAtIndex:
+                            [[lastLine stringByTrimmingTailSpaces] length] - 1];
+      
+      // Indent according with reserved word or if is a gsmarkup indent.
+      if ((([indentCharacters characterIsMember: lastChar]) &&
+               (![previousLine hasPrefix: @"switch("])) ||
+               ([checkLine hasPrefix: @"if("]) ||
+               ([checkLine hasPrefix: @"else"]) ||
+               ([checkLine hasPrefix: @"while("] && ![previousLine hasPrefix: @"}"]) ||
+               ([checkLine hasPrefix: @"for("]) ||
+               ([checkLine isEqualToString: @"do"]) ||
+               ([checkLine isEqualToString: @"default:"]) ||
+               ([checkLine hasPrefix: @"switch("]) ||
+               ([checkLine hasPrefix: @"case"]) ||
+               ([self isGSmarkupIndent: checkLine]))
+        {
+          spaceToInsert = [spaceToInsert stringByAppendingString: 
+                                         [Preferences indentation]];
+        }
+      else
+        {
+          // Check if is a case of a backindent.
+          if (([backIndentCharacters characterIsMember: lastChar]) ||
+              ([checkLine hasSuffix: @"break;"]) ||
+              ([self isGSmarkupBackIndent: checkLine]))
+            {
+              spaceToInsert = [spaceToInsert stringByDeletingPrefix:
+                                             [Preferences indentation]];
+            }
+          // Take care with "switch" sentence.
+          else if ( !([indentCharacters characterIsMember: lastChar] &&
+               [previousLine hasPrefix: @"switch("]) )
+            {
+              /* Don't indent if the user is closing a multiline condition.
+                 For example, in an "if" sentence. */
+              if (![otherIndentCharacters characterIsMember: lastChar] &&
+                   lastChar != ')')
+                {
+                  NSString *space = [self indentForCloseBracket: view];
+                    
+                  if (space != nil)
+                    {
+                      spaceToInsert = [space stringByAppendingString:
+                                             [Preferences indentation]];
+                    }
+                }
+            }
+        }
+    }
+
+  [view modifyInputByInserting: spaceToInsert];
+  return YES;
 }
 
 -(BOOL)modifyTab: (id<InputModifiable>)view {
-	 return NO;
+  if (![type isEqualToString: @"GNUmakefile"]) //&& [sender tag] != 500)
+    {
+      NSString *lastLine, *previousLine = nil;
+      NSArray *lines;
+      NSString *string = [view inputModifiableString];
+      int cursor = [view inputModifiableCursor];
+    	
+      lines = [[string substringFromRange: NSMakeRange(0, cursor)]
+                     componentsSeparatedByString: @"\n"];
+      
+      lastLine = [lines objectAtIndex: [lines count] - 1];
+      
+      if ([lines count] >= 2)
+        {
+          previousLine = [lines objectAtIndex: [lines count] - 2];
+        }
+      
+      if (previousLine != nil)
+        {
+          NSRange loc = [previousLine rangeOfString: @":"
+                                            options: NSBackwardsSearch];
+          
+          if (loc.location != NSNotFound)
+            {
+              previousLine = [previousLine substringToIndex: loc.location];
+
+              loc = [previousLine rangeOfString: @" "
+                                        options: NSBackwardsSearch];
+              
+              if (loc.location != NSNotFound)
+                {
+                  NSUInteger lg;
+                  NSString *insert;
+                  
+                  if ( (loc.location + 1) > [lastLine length])
+                    {
+                      lg = (loc.location + 1) - [lastLine length];
+
+                      insert = [@"" stringByPaddingToLength: lg
+                                                 withString: @" "
+                                            startingAtIndex: 0];
+                      
+                      [view modifyInputByInserting: insert];
+                    }
+                  else
+                    {
+                      [self insertSpace: view];
+                    }
+                }
+              else
+                {
+                  [self insertSpace: view];
+                }
+            }
+          else
+            {
+              [self insertSpace: view];
+            }          
+        }
+      else
+        {
+          [self insertSpace: view];
+        }
+    }
+  else
+    {
+      [view modifyInputByInsertingTab];
+    }
+	return YES;
 }
 
 @end

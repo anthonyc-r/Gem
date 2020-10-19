@@ -19,17 +19,17 @@
 */
 
 #import <AppKit/AppKit.h>
+#import "InputModifiers/InputModifiable.h"
 
 @class GemasDocument, HKSyntaxHighlighter, NSCharcterSet, NSDictionary;
 
-@interface GemasEditorView : NSTextView
+@interface GemasEditorView : NSTextView<InputModifiable>
 {
   NSString *type;
+	 id autoIndenter;
   GemasDocument *editorDocument;
   HKSyntaxHighlighter *highlighter;
-  NSCharacterSet *openCharacters, *closeCharacters, *indentCharacters, *backIndentCharacters;
-  NSCharacterSet *otherIndentCharacters;
-  NSDictionary *nonEnglishCharacters;
+  NSCharacterSet *openCharacters, *closeCharacters;
 }
 
 - (void) createSyntaxHighlighterForFileType: (NSString *) fileType;
