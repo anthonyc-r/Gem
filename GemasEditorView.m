@@ -119,26 +119,29 @@
 //Insert the correponding indentation when the user press Tab key
 - (void) insertTab: (id)sender
 {
-	 if ([autoIndenter modifyTab: self]) {
-	   	return;
- 	 }
+	 if ([autoIndenter modifyTab: self]) 
+	   {
+	   	 return;
+ 	   }
   [super insertText: [Preferences indentation]];
 }
 
 //If the new line need indentation, add it
 - (void) insertNewline: (id)sender
 {
-	 if ([autoIndenter modifyNewline: self]) {
-	   return;	
- 	 }
+	 if ([autoIndenter modifyNewline: self]) 
+	   {
+	    return;	
+ 	   }
   [super insertNewline: sender];
 }
 
 - (void) insertText: (id)string
 {
-  if ([autoIndenter modifyInput: string forModifiable: self]) {
-    return;	
-  }	
+  if ([autoIndenter modifyInput: string forModifiable: self]) 
+  	 {
+     return;	
+    }	
   [super insertText: string];
 }
 
@@ -374,27 +377,27 @@
     }
 }
 
--(void)modifyInputByReplacingRange: (NSRange)aRange withString: (NSString*)aString {
+- (void) modifyInputByReplacingRange: (NSRange)aRange withString: (NSString*)aString {
   [self replaceCharactersInRange: aRange withString: aString];
 }
 
--(void)modifyInputByInserting: (NSString*)aString {
-  [super insertText: aString];
+- (void) modifyInputByInserting: (NSString*)aString {
+   [super insertText: aString];
 }
 
--(void)modifyInputByInsertingTab {
- [super insertText: [Preferences indentation]];
+- (void) modifyInputByInsertingTab {
+  [super insertText: [Preferences indentation]];
 }
 
--(void)modifyInputByInsertingNewline {
-  [super insertNewline: self];
+- (void) modifyInputByInsertingNewline {
+   [super insertNewline: self];
 }
 
--(NSString*)inputModifiableString {
+- (NSString*) inputModifiableString {
   return [self string];
 }
 
--(int)inputModifiableCursor {
+- (int) inputModifiableCursor {
   return [self selectedRange].location;
 }
 

@@ -20,7 +20,8 @@
 #include <Foundation/Foundation.h>
 #include "InputModifiable.h"
  
-@interface ObjcAutoIndenter: NSObject {
+@interface ObjcAutoIndenter: NSObject 
+{
 	 id type;
 	 id nonEnglishCharacters;
 	 id backIndentCharacters;
@@ -28,11 +29,11 @@
 	 id otherIndentCharacters;
 }
 
--(id)initWithFiletype: (NSString*)filetype;
--(void)setType: (NSString*)newValue;
--(BOOL)modifyInput: (NSString*)input forModifiable: (id<InputModifiable>)view;
--(BOOL)modifyNewline: (id<InputModifiable>)view;
--(BOOL)modifyTab: (id<InputModifiable>)view;
+- (id) initWithFiletype: (NSString*)filetype;
+- (void) setType: (NSString*)newValue;
+- (BOOL) modifyInput: (NSString*)input forModifiable: (id<InputModifiable>)view;
+- (BOOL) modifyNewline: (id<InputModifiable>)view;
+- (BOOL) modifyTab: (id<InputModifiable>)view;
 
 @end
 

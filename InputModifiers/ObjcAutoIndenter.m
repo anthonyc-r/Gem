@@ -136,25 +136,28 @@
  
 @implementation ObjcAutoIndenter
 
--(id)initWithFiletype: (NSString*)filetype {
-  if (self = [super init]) {
-    indentCharacters = [NSCharacterSet characterSetWithCharactersInString: @"{"];
-    [indentCharacters retain];
-    backIndentCharacters = [NSCharacterSet characterSetWithCharactersInString: @"}"];
-    [backIndentCharacters retain];
-    otherIndentCharacters = [NSCharacterSet characterSetWithCharactersInString: @"|&"];
-    [otherIndentCharacters retain];
+-(id)initWithFiletype: (NSString*)filetype 
+{
+  if (self = [super init]) 
+  	 {
+     indentCharacters = [NSCharacterSet characterSetWithCharactersInString: @"{"];
+     [indentCharacters retain];
+     backIndentCharacters = [NSCharacterSet characterSetWithCharactersInString: @"}"];
+     [backIndentCharacters retain];
+     otherIndentCharacters = [NSCharacterSet characterSetWithCharactersInString: @"|&"];
+     [otherIndentCharacters retain];
   
-    //Dictionary for foreing characters
-    NSBundle *bundle = [NSBundle mainBundle];
-    nonEnglishCharacters = [NSDictionary dictionaryWithContentsOfFile:
+     //Dictionary for foreing characters
+     NSBundle *bundle = [NSBundle mainBundle];
+     nonEnglishCharacters = [NSDictionary dictionaryWithContentsOfFile:
                            [bundle pathForResource: @"nonEnglishCharacters" ofType: @"plist"]];
-    [nonEnglishCharacters retain];
-  }
+     [nonEnglishCharacters retain];
+    }
   return self;
 }
 
--(void)dealloc {
+- (void) dealloc 
+{
   TEST_RELEASE(indentCharacters);
   TEST_RELEASE(backIndentCharacters);
   TEST_RELEASE(otherIndentCharacters);
@@ -162,11 +165,13 @@
   [super dealloc];
 }
 
--(void)setType: (NSString*)newValue {
+-(void)setType: (NSString*)newValue 
+{
   ASSIGN(type, newValue);
 }
 
--(BOOL)modifyInput: (NSString*)input forModifiable: (id<InputModifiable>)view {
+-(BOOL)modifyInput: (NSString*)input forModifiable: (id<InputModifiable>)view 
+{
 	 NSString *string = [view inputModifiableString];
 	 int cursor = [view inputModifiableCursor];
   if ([input isKindOfClass: [NSString class]] && ([input length] > 0) )
@@ -381,7 +386,8 @@
   return YES;
 }
 
--(BOOL)modifyNewline: (id<InputModifiable>)view {
+- (BOOL) modifyNewline: (id<InputModifiable>)view 
+{
   NSString *spaceToInsert, *previousLine = nil;
   NSString *lastLine;
   NSArray *lines;
@@ -478,7 +484,8 @@
   return YES;
 }
 
--(BOOL)modifyTab: (id<InputModifiable>)view {
+- (BOOL) modifyTab: (id<InputModifiable>)view 
+{
   if (![type isEqualToString: @"GNUmakefile"]) //&& [sender tag] != 500)
     {
       NSString *lastLine, *previousLine = nil;

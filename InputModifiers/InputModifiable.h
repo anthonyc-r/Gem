@@ -21,12 +21,12 @@
  
 @protocol InputModifiable
  
--(void)modifyInputByReplacingRange: (NSRange)aRange withString: (NSString*)aString;
--(void)modifyInputByInserting: (NSString*)aString;
--(void)modifyInputByInsertingTab;
--(void)modifyInputByInsertingNewline;
--(NSString*)inputModifiableString;
--(int)inputModifiableCursor;
+- (void) modifyInputByReplacingRange: (NSRange)aRange withString: (NSString*)aString;
+- (void) modifyInputByInserting: (NSString*)aString;
+- (void) modifyInputByInsertingTab;
+- (void) modifyInputByInsertingNewline;
+- (NSString*) inputModifiableString;
+- (int) inputModifiableCursor;
  
 @end
 

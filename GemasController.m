@@ -442,12 +442,14 @@
   POST_CHANGE; 
 }
 
-- (void) changeAutoIndentEnabled: (id)sender {
+- (void) changeAutoIndentEnabled: (id)sender 
+{
   NSLog(@"changed auto indent state");
 	 BOOL enabled = [sender state] == NSOnState;
-	 if (enabled) {
- 	   NSLog(@"Now enabled");
- 	 }
+	 if (enabled) 
+	   {
+ 	    NSLog(@"Now enabled");
+ 	   }
   [Preferences setAutoIndentEnabled: enabled];
   POST_CHANGE;
 }

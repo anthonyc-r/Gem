@@ -98,16 +98,17 @@
   font = [HKSyntaxHighlighter defaultFont];
   if (font != nil)
     {
-      [textView setFont: font];
+     [textView setFont: font];
     }
 
   //Set the syntax highlighter again
   [textView createSyntaxHighlighterForFileType: [self fileType]];
   
   NSMutableParagraphStyle *paragraphStyle = [[textView defaultParagraphStyle] mutableCopy];
-  if (paragraphStyle == nil) {
-    paragraphStyle = [[NSMutableParagraphStyle alloc] init]; 
-  }
+  if (paragraphStyle == nil) 
+  	 {
+     paragraphStyle = [[NSMutableParagraphStyle alloc] init]; 
+    }
   AUTORELEASE(paragraphStyle);
   int nspaces = [Preferences tabWidthSpaces];
   float charWidth = [[[textView font]
@@ -117,12 +118,13 @@
   // Workaround for versions of gnustep-gui without default tab fix
   NSMutableArray *tabstops = [NSMutableArray array];
   NSTextTab *tab;
-  for (int i = 0; i < 10; i++) {
-    tab = [[NSTextTab alloc] initWithTextAlignment: NSTextAlignmentLeft
-      location: i * charWidth * nspaces options: nil];
-    AUTORELEASE(tab);
-    [tabstops addObject: tab];
-  }
+  for (int i = 0; i < 10; i++) 
+  	 {
+     tab = [[NSTextTab alloc] initWithTextAlignment: NSTextAlignmentLeft
+       location: i * charWidth * nspaces options: nil];
+     AUTORELEASE(tab);
+     [tabstops addObject: tab];
+    }
   [paragraphStyle setTabStops: tabstops];
   [textView setDefaultParagraphStyle: paragraphStyle];
   
@@ -136,15 +138,15 @@
   [textView setNeedsDisplay: YES];
 	
 	 // Update the files autoindenter
-	 if ([Preferences autoIndentEnabled]) {
-	 	 NSLog(@"auto indent now enabled");
-	 	 [textView setAutoIndenter: AUTORELEASE([[ObjcAutoIndenter alloc] 
-	 	   initWithFiletype: [self fileType]])];
- 	 }
-  else {
-  	 NSLog(@"auto indent now disabled");
-    [textView setAutoIndenter: nil];
-  }
+	 if ([Preferences autoIndentEnabled]) 
+	   {
+	 	  [textView setAutoIndenter: AUTORELEASE([[ObjcAutoIndenter alloc] 
+	 	    initWithFiletype: [self fileType]])];
+ 	   }
+  else
+  	 {
+     [textView setAutoIndenter: nil];
+    }
 }
 
 @end
