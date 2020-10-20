@@ -33,4 +33,5 @@
 }
 
 - (void) createSyntaxHighlighterForFileType: (NSString *) fileType;
+- (void) setAutoIndenter: (id) anAutoIndenter;
 @end

@@ -449,6 +449,7 @@
  	   NSLog(@"Now enabled");
  	 }
   [Preferences setAutoIndentEnabled: enabled];
+  POST_CHANGE;
 }
 
 //Looks

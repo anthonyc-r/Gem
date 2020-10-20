@@ -386,9 +386,9 @@
   NSString *lastLine;
   NSArray *lines;
   NSString *string = [view inputModifiableString];
-  int cursor = [view inputModifiableCursor];
   
   [view modifyInputByInsertingNewline];
+  int cursor = [view inputModifiableCursor];
 
   lines = [[string substringFromRange: NSMakeRange(0, cursor)]
                           componentsSeparatedByString: @"\n"];

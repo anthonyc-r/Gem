@@ -45,7 +45,10 @@
   RETAIN(openCharacters);
   closeCharacters = [NSCharacterSet characterSetWithCharactersInString: @"]})"];
   RETAIN(closeCharacters);
-  autoIndenter = [[ObjcAutoIndenter alloc] initWithFiletype: type];
+	 autoIndenter = nil;
+	 if ([Preferences autoIndentEnabled]) {
+    autoIndenter = [[ObjcAutoIndenter alloc] initWithFiletype: type];
+  }
 }
 
 - (void) drawRect: (NSRect) frame
@@ -108,24 +111,35 @@
     }
 }
 
+- (void) setAutoIndenter: (id)anAutoIndenter
+{
+  ASSIGN(autoIndenter, anAutoIndenter);
+}
+
 //Insert the correponding indentation when the user press Tab key
 - (void) insertTab: (id)sender
 {
-	 NSLog(@"tab");
-	 [autoIndenter modifyTab: self];
+	 if ([autoIndenter modifyTab: self]) {
+	   	return;
+ 	 }
+  [super insertText: [Preferences indentation]];
 }
 
 //If the new line need indentation, add it
 - (void) insertNewline: (id)sender
 {
-	 NSLog(@"newline");
-	 [autoIndenter modifyNewline: self];
+	 if ([autoIndenter modifyNewline: self]) {
+	   return;	
+ 	 }
+  [super insertNewline: sender];
 }
 
 - (void) insertText: (id)string
 {
-	 NSLog(@"text");
-  [autoIndenter modifyInput: string forModifiable: self];
+  if ([autoIndenter modifyInput: string forModifiable: self]) {
+    return;	
+  }	
+  [super insertText: string];
 }
 
 // Delete from the beginning of line to current position
@@ -365,12 +379,11 @@
 }
 
 -(void)modifyInputByInserting: (NSString*)aString {
-	 NSLog(@"insert string: %@", aString);
   [super insertText: aString];
 }
 
 -(void)modifyInputByInsertingTab {
-  [super insertTab: self];
+ [super insertText: [Preferences indentation]];
 }
 
 -(void)modifyInputByInsertingNewline {

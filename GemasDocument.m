@@ -24,6 +24,7 @@
 #import "GemasEditorView.h"
 #import "GNUstepGUI/GSTheme.h"
 #import "Preferences.h"
+#import "InputModifiers/ObjcAutoIndenter.h"
 #import <Foundation/NSUserDefaults.h>
 #import <HighlighterKit/HighlighterKit.h>
 
@@ -133,6 +134,17 @@
     range: NSMakeRange(0, [[textView string] length])];
 
   [textView setNeedsDisplay: YES];
+	
+	 // Update the files autoindenter
+	 if ([Preferences autoIndentEnabled]) {
+	 	 NSLog(@"auto indent now enabled");
+	 	 [textView setAutoIndenter: AUTORELEASE([[ObjcAutoIndenter alloc] 
+	 	   initWithFiletype: [self fileType]])];
+ 	 }
+  else {
+  	 NSLog(@"auto indent now disabled");
+    [textView setAutoIndenter: nil];
+  }
 }
 
 @end
