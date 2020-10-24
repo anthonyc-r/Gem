@@ -30,6 +30,7 @@
   GemasDocument *editorDocument;
   HKSyntaxHighlighter *highlighter;
   NSCharacterSet *openCharacters, *closeCharacters;
+  NSDictionary *openBrackets, *closeBrackets;
 }
 
 - (void) createSyntaxHighlighterForFileType: (NSString *) fileType;

@@ -33,6 +33,8 @@ Resources/FileIcon_.m.tiff \
 Resources/FileIcon_.mm.tiff \
 Resources/FileIcon_.plist.tiff \
 Resources/FileIcon_.strings.tiff \
+Resources/FileIcon_.java.tiff \
+Resources/FileIcon_txt.tiff \
 Resources/FileIcon_makefile.tiff \
 Resources/nonEnglishCharacters.plist \
 Resources/AppResources \

@@ -35,7 +35,10 @@
   TEST_RELEASE(openCharacters);
   TEST_RELEASE(closeCharacters);
   TEST_RELEASE(type);
-	 RELEASE(autoIndenter);
+  RELEASE(autoIndenter);
+  RELEASE(openBrackets);
+  RELEASE(closeBrackets);
+
   [super dealloc];
 }
 
@@ -45,8 +48,20 @@
   RETAIN(openCharacters);
   closeCharacters = [NSCharacterSet characterSetWithCharactersInString: @"]})"];
   RETAIN(closeCharacters);
-	 autoIndenter = nil;
-	 if ([Preferences autoIndentEnabled]) {
+  closeBrackets = [[NSMutableDictionary alloc] initWithObjectsAndKeys: 
+    @"[", @"]",
+    @"{", @"}", 
+    @"(", @")", 
+    NULL];
+  openBrackets = [[NSMutableDictionary alloc] initWithObjectsAndKeys: 
+    @"]", @"[",
+    @"}", @"{",
+    @")", @"(", 
+    NULL];
+  
+  autoIndenter = nil;
+  if ([Preferences autoIndentEnabled]) 
+  {
     autoIndenter = [[ObjcAutoIndenter alloc] initWithFiletype: type];
   }
 }
@@ -197,87 +212,30 @@
   [super mouseDown: event];
   textRange = [self selectedRange];
   selection = [[self string] substringFromRange: textRange];
-
-  if ([selection length] == 1)
+  if (textRange.length != 1)
     {
-      //Open character {[(
-      if ([openCharacters characterIsMember: [selection characterAtIndex: 0]])
+      return;      
+    }
+  NSString *opositeMatch, *context;
+  NSRange matchRange;
+
+  if ((opositeMatch = [openBrackets objectForKey: selection]))
+    {
+      context = [[self string] substringFromIndex: textRange.location];
+      matchRange = [context rangeOfString: opositeMatch options: 0];
+      if (matchRange.location != NSNotFound)
         {
-          NSString *search = nil;
-          NSRange firstClose, firstOpen;
-          NSString *contextA, *contextB;
-          NSString *context = [[self string] substringFromRange: NSMakeRange(textRange.location + 1, [[self string] length] - textRange.location - 1)];
-
-          if ([selection isEqualToString: @"{"])
-            {
-              search = @"}";
-            }
-
-          if ([selection isEqualToString: @"["])
-            {
-              search = @"]";
-            }
-
-          if ([selection isEqualToString: @"("])
-            {
-              search = @")";
-            }
-
-          firstOpen = [context rangeOfString: selection];
-          firstClose = [context rangeOfString: search];
-
-          firstOpen = NSMakeRange(firstOpen.location + 1, firstOpen.length);
-          firstClose = NSMakeRange(firstClose.location + 1, firstClose.length);
-
-          while ((firstOpen.location < firstClose.location) && (firstOpen.length != 0) && (firstClose.length != 0))
-            {
-              contextA = [[self string] substringFromRange: NSMakeRange(textRange.location + firstOpen.location + 1, [[self string] length] - firstOpen.location - textRange.location - 1)];
-              contextB = [[self string] substringFromRange: NSMakeRange(textRange.location + firstClose.location + 1, [[self string] length] - firstClose.location - textRange.location - 1)];
-              
-              firstOpen = NSMakeRange([[self string] length] - [contextA length] + [contextA rangeOfString: selection].location - textRange.location, [contextA rangeOfString: selection].length);
-              firstClose = NSMakeRange([[self string] length] - [contextB length] + [contextB rangeOfString: search].location - textRange.location, [contextB rangeOfString: search].length);
-            }
-
-          [self setSelectedRange: NSMakeRange(textRange.location, firstClose.location + 1)];
+          [self setSelectedRange: NSMakeRange(textRange.location, matchRange.location + 1)];
         }
-      
-      //Close character }])
-      if ([closeCharacters characterIsMember: [selection characterAtIndex: 0]])
+    }
+  else if ((opositeMatch = [closeBrackets objectForKey: selection]))
+    {
+      context = [[self string] substringToIndex: textRange.location];
+      matchRange = [context rangeOfString: opositeMatch options: NSBackwardsSearch];
+      if (matchRange.location != NSNotFound)
         {
-          NSString *search = nil;
-          NSRange firstClose, firstOpen;
-          NSString *contextA, *contextB;
-          NSString *context = [[self string] substringFromRange: NSMakeRange(0, textRange.location)];
-
-          if ([selection isEqualToString: @"}"])
-            {
-              search = @"{";
-            }
-
-          if ([selection isEqualToString: @"]"])
-            {
-              search = @"[";
-            }
-
-          if ([selection isEqualToString: @")"])
-            {
-              search = @"(";
-            }
-
-          firstOpen = [context rangeOfString: search options: NSBackwardsSearch];
-          firstClose = [context rangeOfString: selection options: NSBackwardsSearch];
-
-          while ((firstOpen.location < firstClose.location) && (firstClose.length != 0))
-            {
-              contextA = [[self string] substringFromRange: NSMakeRange(0, firstOpen.location)];
-              contextB = [[self string] substringFromRange: NSMakeRange(0, firstClose.location)];
-              
-              firstOpen = [contextA rangeOfString: search options: NSBackwardsSearch];
-              firstClose = [contextB rangeOfString: selection options: NSBackwardsSearch];
-              
-            }
-          
-          [self setSelectedRange: NSMakeRange(firstOpen.location, textRange.location - firstOpen.location + 1)];
+          [self setSelectedRange: NSMakeRange(matchRange.location, (textRange.location - 
+            matchRange.location) + 1)];
         }
     }
 }
