@@ -147,6 +147,8 @@
   	 {
      [textView setAutoIndenter: nil];
     }
+ 
+  [textView highlightRange: NSMakeRange(0, [[textView string] length])];
 }
 
 @end
@@ -184,6 +186,7 @@
 
 - (BOOL) readFromFile: (NSString *) fileName ofType: (NSString *) fileType
 {
+  NSLog(@"read from file..");
   NSString *aString = [NSString stringWithContentsOfFile: fileName];
 
   if (aString != nil)
@@ -230,7 +233,7 @@
   
   //Setup the user preferences
   [self setupNewDefaults];
-  
+
   // Autocomplete
   length = 0;
 }
@@ -316,7 +319,8 @@
   
   //Set the syntax highlighter
   [textView createSyntaxHighlighterForFileType: [self fileType]];
-  
+  NSLog(@"Strlen: %lu", [string length]);
+  [textView highlightRange: NSMakeRange(0, [string length])];
   return YES;
 }
 

@@ -27,6 +27,26 @@
 #import "InputModifiers/ObjcAutoIndenter.h"
 #import "InputModifiers/InputModifiable.h"
 
+
+@implementation GemasEditorView (Private)
+
+- (void) updateVisibleHighlighting 
+{
+  NSLayoutManager *layoutManager;
+  NSTextContainer *textContainer;
+  NSRange drawnRange;
+  NSScrollView *scrollView = (NSScrollView*)[self superview];
+  NSRect visibleRect = [scrollView documentVisibleRect];
+
+  layoutManager = [self layoutManager];
+  textContainer = [self textContainer];
+  drawnRange = [layoutManager glyphRangeForBoundingRect: visibleRect
+                              inTextContainer: textContainer];
+  [highlighter highlightRange: drawnRange];
+}
+
+@end
+
 @implementation GemasEditorView
 
 - (void) dealloc
@@ -66,19 +86,9 @@
   }
 }
 
-- (void) drawRect: (NSRect) frame
+- (void) highlightRange: (NSRange)range
 {
-  NSLayoutManager *layoutManager;
-  NSTextContainer *textContainer;
-  NSRange drawnRange;
-  
-  layoutManager = [self layoutManager];
-  textContainer = [self textContainer];
-  drawnRange = [layoutManager glyphRangeForBoundingRect: frame
-                              inTextContainer: textContainer];
-  
-  [highlighter highlightRange: drawnRange];
-  [super drawRect: frame];
+  [highlighter highlightRange: range]; 
 }
 
 // Find ":" for next parameter
@@ -155,9 +165,15 @@
 {
   if ([autoIndenter modifyInput: string forModifiable: self]) 
   	 {
-     return;	
+      return;
     }	
   [super insertText: string];
+}
+
+- (void) didChangeText
+{
+  [self updateVisibleHighlighting];
+  [super didChangeText];
 }
 
 // Delete from the beginning of line to current position

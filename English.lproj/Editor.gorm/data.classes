@@ -21,7 +21,8 @@
 	    textView,
 	    numberLine,
 	    numberColumn,
-	    documentWindow
+	    documentWindow,
+	    scrollView
 	);
 	Super = NSDocument;
     };
