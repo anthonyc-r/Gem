@@ -89,6 +89,24 @@
       NSDocumentClass = GemasDocument;
     },
     {
+      NSName = "Java";
+      NSHumanReadableName = "Java";
+      NSUnixExtensions = ( java );
+      NSDosExtensions = ( java );
+      NSIcon = "FileIcon_.java.tiff";
+      NSRole = Editor;
+      NSDocumentClass = GemasDocument;
+    },
+    {
+      NSName = "Txt";
+      NSHumanReadableName = "Text File";
+      NSUnixExtensions = ( txt );
+      NSDOSExtensions = ( txt );
+      NSIcon = "FileIcon_txt.tiff";
+      NSRole = Editor;
+      NSDocumentClass = GemasDocument;
+    },
+    {
       NSName = "GNUmakefile";
       NSHumanReadableName = "GNUmakefile";
       NSIcon = "FileIcon_makefile.tiff";
