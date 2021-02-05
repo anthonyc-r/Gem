@@ -67,6 +67,7 @@ InputModifiers/ObjcAutoIndenter.m
 Gem_OBJC_FILES += \
 Gemas_main.m
 
+ADDITIONAL_FLAGS += -std=gnu99
 
 # Makefiles
 -include GNUmakefile.preamble
