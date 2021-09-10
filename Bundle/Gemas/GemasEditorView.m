@@ -933,6 +933,10 @@ static NSPanel *panel = nil;
     {
       type = [NSString stringWithString: @"C++"];
     }
+  else if ([ext isEqualToString: @"qc"])
+    {
+      type = [NSString stringWithString: @"QuakeC"];
+    }
   else if ([ext isEqualToString: @"m"])
     {
       type = [NSString stringWithString: @"ObjC"];

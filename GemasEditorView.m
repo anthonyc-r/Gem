@@ -315,6 +315,23 @@
       [[self window] setMiniwindowImage: [NSImage imageNamed: @"FileIcon_.cc"]];
     }
 
+  if ([type isEqualToString: @"QuakeC"])
+    {
+      [[self window] setMiniwindowImage: [NSImage imageNamed: @"FileIcon_.qc"]];
+    }
+  if ([type isEqualToString: @"Material"])
+    {
+      [[self window] setMiniwindowImage: [NSImage imageNamed: @"FileIcon_.mat"]];
+    }
+  if ([type isEqualToString: @"Q3AShader"])
+    {
+      [[self window] setMiniwindowImage: [NSImage imageNamed: @"FileIcon_.shader"]];
+    }
+  if ([type isEqualToString: @"GLSL"])
+    {
+      [[self window] setMiniwindowImage: [NSImage imageNamed: @"FileIcon_.glsl"]];
+    }
+
   if ([type isEqualToString: @"ObjC"])
     {
       [[self window] setMiniwindowImage: [NSImage imageNamed: @"FileIcon_.m"]];

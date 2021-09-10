@@ -104,6 +104,22 @@
       [[NSDocumentController sharedDocumentController]
         openUntitledDocumentOfType: @"Generic" display: YES];
       break;
+    case 12:
+      [[NSDocumentController sharedDocumentController]
+        openUntitledDocumentOfType: @"QuakeC" display: YES];
+      break;
+    case 13:
+      [[NSDocumentController sharedDocumentController]
+        openUntitledDocumentOfType: @"GLSL" display: YES];
+      break;
+    case 14:
+      [[NSDocumentController sharedDocumentController]
+        openUntitledDocumentOfType: @"Material" display: YES];
+      break;
+    case 15:
+      [[NSDocumentController sharedDocumentController]
+        openUntitledDocumentOfType: @"Q3AShader" display: YES];
+      break;
     }
 }
 

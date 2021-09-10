@@ -34,6 +34,10 @@ Resources/FileIcon_.mm.tiff \
 Resources/FileIcon_.plist.tiff \
 Resources/FileIcon_.strings.tiff \
 Resources/FileIcon_.java.tiff \
+Resources/FileIcon_.qc.tiff \
+Resources/FileIcon_.glsl.tiff \
+Resources/FileIcon_.mat.tiff \
+Resources/FileIcon_.shader.tiff \
 Resources/FileIcon_txt.tiff \
 Resources/FileIcon_makefile.tiff \
 Resources/nonEnglishCharacters.plist \

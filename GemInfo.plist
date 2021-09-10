@@ -125,6 +125,42 @@
       NSDocumentClass = GemasDocument;
     },
     {
+      NSName = "QuakeC";
+      NSHumanReadableName = "Quake-C";
+      NSIcon = "FileIcon_.qc.tiff";
+      NSUnixExtensions = ( qc );
+      NSDOSExtensions = ( qc );
+      NSRole = Editor;
+      NSDocumentClass = GemasDocument;
+    },
+     {
+      NSName = "GLSL";
+      NSHumanReadableName = "GLSL program file";
+      NSIcon = "FileIcon_.glsl.tiff";
+      NSUnixExtensions = ( glsl );
+      NSDOSExtensions = ( glsl );
+      NSRole = Editor;
+      NSDocumentClass = GemasDocument;
+    },
+    {
+      NSName = "Material";
+      NSHumanReadableName = "Nuclide material file";
+      NSIcon = "FileIcon_.mat.tiff";
+      NSUnixExtensions = ( mat );
+      NSDOSExtensions = ( mat );
+      NSRole = Editor;
+      NSDocumentClass = GemasDocument;
+    },
+    {
+      NSName = "Q3AShader";
+      NSHumanReadableName = "Trinity shader file";
+      NSIcon = "FileIcon_.mat.tiff";
+      NSUnixExtensions = ( shader );
+      NSDOSExtensions = ( shader );
+      NSRole = Editor;
+      NSDocumentClass = GemasDocument;
+    },
+    {
       NSName = "Generic";
       NSHumanReadableName = "Other";
       NSIcon = "FileIcon_makefile.tiff";
