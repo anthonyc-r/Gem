@@ -116,6 +116,15 @@
       NSDocumentClass = GemasDocument;
     },
     {
+      NSName = "Script";
+      NSHumanReadableName = "Script";
+      NSIcon = "FileIcon_script.tiff";
+      NSUnixExtensions = ( sh );
+      NSDOSExtensions = ( sh );
+      NSRole = Editor;
+      NSDocumentClass = GemasDocument;
+    },
+    {
       NSName = "ChangeLog";
       NSHumanReadableName = "ChangeLog";
       NSIcon = "FileIcon_makefile.tiff";

@@ -38,6 +38,7 @@ Resources/FileIcon_.qc.tiff \
 Resources/FileIcon_.glsl.tiff \
 Resources/FileIcon_.mat.tiff \
 Resources/FileIcon_.shader.tiff \
+Resources/FileIcon_.script.tiff \
 Resources/FileIcon_txt.tiff \
 Resources/FileIcon_makefile.tiff \
 Resources/nonEnglishCharacters.plist \
