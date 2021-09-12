@@ -172,9 +172,9 @@
     {
       NSName = "Generic";
       NSHumanReadableName = "Other";
-      NSIcon = "FileIcon_makefile.tiff";
-      NSUnixExtensions = ( * );
-      NSDOSExtensions = ( * );
+      NSIcon = "FileIcon_txt.tiff";
+      NSUnixExtensions = ( *, fmf, log, lst, md, src );
+      NSDOSExtensions = ( *, fmf, log, lst, md, src );
       NSRole = Editor;
       NSDocumentClass = GemasDocument;
     }
