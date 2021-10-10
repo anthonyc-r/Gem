@@ -273,7 +273,7 @@
 
     /* preproc directive */
     {
-      Beginning = "^#";
+      Beginning = "#";
       Ending = "\n";
       ContextSkips = (
         "\\\\\n"
