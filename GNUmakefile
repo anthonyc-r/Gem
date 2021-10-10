@@ -43,6 +43,10 @@ Resources/FileIcon_makefile.tiff \
 Resources/nonEnglishCharacters.plist \
 Resources/AppResources \
 Resources/ToolResources \
+Resources/QuakeC.syntax \
+Resources/GLSL.syntax \
+Resources/Material.syntax \
+Resources/Q3AShader.syntax \
 Resources/words.plist
 
 

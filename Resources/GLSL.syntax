@@ -1,0 +1,623 @@
+/*
+GLSL highlighting rules
+Copyright (C) 2021 eukara for Vera Visions LLC
+ */
+{
+  Contexts = (
+    {
+      Keywords = (
+// types (green)
+        {
+          Pattern = "<bool>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<int>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<uint>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<float>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<double>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<bvec2>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<bvec3>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<bvec4>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<uvec2>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<uvec3>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<uvec4>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<ivec2>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<ivec3>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<ivec4>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<vec2>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<vec3>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<vec4>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<dvec2>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<dvec3>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<dvec4>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<mat2>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<mat3>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<mat4>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<dmat2>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<dmat3>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<dmat4>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<sampler1D>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<sampler2D>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<sampler3D>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<samplerCube>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<sampler2DShadow>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<void>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        // extra
+        {
+          Pattern = "<precision>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<const>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<uniform>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<attribute>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<varying>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<struct>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+// functions
+        {
+          Pattern = "<degrees>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<sin>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<cos>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<tangent>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<asin>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<acos>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<atan>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<pow>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<exp>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<log>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<exp2>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<log2>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<sqrt>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<inversesqrt>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<abs>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<sign>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<floor>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<ceil>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<mod>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<min>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<max>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<clamp>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<mix>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<step>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<smoothstep>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<length>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<distance>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<dot>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<cross>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<normalize>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<faceforward>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<reflect>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<refract>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<matrixCompMult>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<lessThan>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<lessThanEqual>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<greaterThan>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<greaterThanEqual>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<equal>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<notEqual>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<any>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<all>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<not>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<texture2D>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<textureCube>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<textureSize>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+// non types (yellow)
+        {
+          Pattern = "<discard>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<break>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<case>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<continue>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<default>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<do>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<for>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<goto>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<if>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<else>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<switch>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<return>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+// special (red-ish pink)
+        {
+          Pattern = "<false>";
+          ForegroundColor = "1.0 0.627 0.627";
+          Bold = YES;
+        },
+        {
+          Pattern = "<true>";
+          ForegroundColor = "1.0 0.627 0.627";
+          Bold = YES;
+        },
+        {
+          Pattern = "<\\.\\.\\.>";
+          ForegroundColor = "0.6 0.45 0.75";
+          Bold = YES;
+        }
+      );
+    },
+
+    /* string */
+    {
+      Beginning = "\"";
+      Ending = "\"";
+      ContextSkips = (
+        "\\\\\\\\",
+        "\\\\\""
+      );
+      ForegroundColor = "1.0 0.627 0.627";
+      Keywords = (
+        {
+          Pattern = "\\\\\\\\";
+          ForegroundColor = "0 1 0";
+          Bold = YES;
+        },
+        {
+          Pattern = "\\\\[0123456789]{3}";
+          ForegroundColor = "0 1 0";
+          Bold = YES;
+        },
+        {
+          Pattern = "\\\\0";
+          ForegroundColor = "0 1 0";
+          Bold = YES;
+        },
+        {
+          Pattern = "\\\\\"";
+          ForegroundColor = "0 1 0";
+          Bold = YES;
+        },
+        {
+          Pattern = "\\\\[ntfb]";
+          ForegroundColor = "0 1 0";
+          Bold = YES;
+        },
+        {
+          Pattern = "%ll[iu]";
+          ForegroundColor = "0 1 0";
+          Bold = YES;
+        },
+        {
+          Pattern = "%[0123456789]*\\.?[0123456789]*l?[%cdefginosupxX]";
+          ForegroundColor = "0 1 0";
+          Bold = YES;
+        }
+      );
+    },
+
+    /* character constant */
+    {
+      Beginning = "'"; 
+      Ending = "'";
+      ContextSkips = (
+        "\\\\\\\\",
+        "\\\\'"
+      );
+      ForegroundColor = "1.0 0.627 0.627";
+    },
+
+    /* head directive */
+    {
+      Beginning = "^!!";
+      Ending = "\n";
+      ContextSkips = (
+        "\\\\\n"
+      );
+      ForegroundColor = "1.0 0.5 1.0";
+      Bold = YES;
+    },
+
+    /* preproc directive */
+    {
+      Beginning = "#";
+      Ending = "\n";
+      ContextSkips = (
+        "\\\\\n"
+      );
+      ForegroundColor = "1.0 0.5 1.0";
+      Bold = YES;
+    },
+
+    /* multi-line comment */
+    {
+      Beginning = "/\\*";
+      Ending = "\\*/";
+      ForegroundColor = "0.502 0.627 1.0";
+      Italic = YES;
+      Keywords = (
+        {
+          Pattern = "<TODO>";
+          ForegroundColor = "0.8 0.1 0.1";
+          Bold = YES;
+        }
+      );
+    },
+
+    /* inline comment */
+    {
+      Beginning = "//";
+      Ending = "\n";
+      ForegroundColor = "0.502 0.627 1.0";
+      Italic = YES;
+      Keywords = (
+        {
+          Pattern = "<TODO>";
+          ForegroundColor = "0.8 0.1 0.1";
+          Bold = YES;
+        }
+      );
+    }
+  );
+}

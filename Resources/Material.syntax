@@ -1,0 +1,533 @@
+/*
+ * Highlighting rules for the C language for the of the HighlighterKit
+ * framework.
+ */
+{
+  Contexts = (
+    {
+      Keywords = (
+        {
+          Pattern = "{";
+          ForegroundColor = "0 0.8 0";
+          Bold = YES;
+        },
+        {
+          Pattern = "}";
+          ForegroundColor = "0 0.8 0";
+          Bold = YES;
+        },
+        {
+          Pattern = "\\[";
+          ForegroundColor = "0 0.8 0";
+          Bold = YES;
+        },
+        {
+          Pattern = "\\]";
+          ForegroundColor = "0 0.8 0";
+          Bold = YES;
+        },
+        {
+          Pattern = "(";
+          ForegroundColor = "0 0.8 0";
+          Bold = YES;
+        },
+        {
+          Pattern = ")";
+          ForegroundColor = "0 0.8 0";
+          Bold = YES;
+        },
+        {
+          Pattern = ";";
+          ForegroundColor = "0.8 0 0.5";
+          Bold = YES;
+        },
+        // syntax
+        {
+          Pattern = "<if>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<else>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<endif>";
+          ForegroundColor = "1.0 1.0 0.376";
+          Bold = YES;
+        },
+        // editor commands
+        {
+          Pattern = "<qer_editorImage>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<qer_noCarve>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<qer_trans>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        // vmap commands
+        {
+          Pattern = "<vmap_tessSize>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<vmap_backShader>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<vmap_globalTexture>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<vmap_surfaceLight>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<vmap_lightImage>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<vmap_lightsubdivide>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<surfaceParm>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<vmap_surfaceLightDistance>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        // global commands
+        {
+          Pattern = "<diffusemap>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<specularmap>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<normalmap>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<fullbrightmap>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<uppermap>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<lowermap>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<displacementmap>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<reflectmask>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<reflectcube>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<deformVertexes>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<entityMergable>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<skyParms>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<cull>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<fogParms>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<noPicmip>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<noMipmaps>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<polygonOffset>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<portal>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<sort>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        // stage commands
+        {
+          Pattern = "<clampmap>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<map>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<rgbGen>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<depthFunc>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<depthWrite>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<program>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<permu>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        {
+          Pattern = "<blendFunc>";
+          ForegroundColor = "0.376 1.0 0.376";
+          Bold = YES;
+        },
+        // parameter values
+        {
+          Pattern = "<programs>";
+          ForegroundColor = "1.0 0.627 0.627";
+          Bold = YES;
+        },
+        {
+          Pattern = "<lightmap>";
+          ForegroundColor = "1.0 0.627 0.627";
+          Bold = YES;
+        },
+        {
+          Pattern = "<blackimage>";
+          ForegroundColor = "1.0 0.627 0.627";
+          Bold = YES;
+        },
+        {
+          Pattern = "<whiteimage>";
+          ForegroundColor = "1.0 0.627 0.627";
+          Bold = YES;
+        },
+        {
+          Pattern = "<front>";
+          ForegroundColor = "1.0 0.627 0.627";
+          Bold = YES;
+        },
+        {
+          Pattern = "<back>";
+          ForegroundColor = "1.0 0.627 0.627";
+          Bold = YES;
+        },
+        {
+          Pattern = "<disable>";
+          ForegroundColor = "1.0 0.627 0.627";
+          Bold = YES;
+        },
+        {
+          Pattern = "<none>";
+          ForegroundColor = "1.0 0.627 0.627";
+          Bold = YES;
+        },
+        // rgbgen modes
+        {
+          Pattern = "<wave>";
+          ForegroundColor = "1.0 0.627 0.627";
+          Bold = YES;
+        },
+        {
+          Pattern = "<identity>";
+          ForegroundColor = "1.0 0.627 0.627";
+          Bold = YES;
+        },
+        {
+          Pattern = "<identityLighting>";
+          ForegroundColor = "1.0 0.627 0.627";
+          Bold = YES;
+        },
+        {
+          Pattern = "<entity>";
+          ForegroundColor = "1.0 0.627 0.627";
+          Bold = YES;
+        },
+        {
+          Pattern = "<entityLighting>";
+          ForegroundColor = "1.0 0.627 0.627";
+          Bold = YES;
+        },
+        {
+          Pattern = "<oneMinusEntity>";
+          ForegroundColor = "1.0 0.627 0.627";
+          Bold = YES;
+        },
+        {
+          Pattern = "<fromVertex>";
+          ForegroundColor = "1.0 0.627 0.627";
+          Bold = YES;
+        },
+        {
+          Pattern = "<lightingDiffuse>";
+          ForegroundColor = "1.0 0.627 0.627";
+          Bold = YES;
+        },
+        // blend-modes (basic)
+        {
+          Pattern = "<add>";
+          ForegroundColor = "1.0 0.627 0.627";
+          Bold = YES;
+        },
+        {
+          Pattern = "<filter>";
+          ForegroundColor = "1.0 0.627 0.627";
+          Bold = YES;
+        },
+        {
+          Pattern = "<blend>";
+          ForegroundColor = "1.0 0.627 0.627";
+          Bold = YES;
+        },
+        // blend-modes (advanced)
+        {
+          Pattern = "<GL_ZERO>";
+          ForegroundColor = "1.0 0.627 0.627";
+          Bold = YES;
+        },
+        {
+          Pattern = "<GL_ONE>";
+          ForegroundColor = "1.0 0.627 0.627";
+          Bold = YES;
+        },
+        {
+          Pattern = "<GL_SRC_COLOR>";
+          ForegroundColor = "1.0 0.627 0.627";
+          Bold = YES;
+        },
+        {
+          Pattern = "<GL_ONE_MINUS_SRC_COLOR>";
+          ForegroundColor = "1.0 0.627 0.627";
+          Bold = YES;
+        },
+        {
+          Pattern = "<GL_DST_COLOR>";
+          ForegroundColor = "1.0 0.627 0.627";
+          Bold = YES;
+        },
+        {
+          Pattern = "<GL_ONE_MINUS_DST_COLOR>";
+          ForegroundColor = "1.0 0.627 0.627";
+          Bold = YES;
+        },
+        {
+          Pattern = "<GL_SRC_ALPHA>";
+          ForegroundColor = "1.0 0.627 0.627";
+          Bold = YES;
+        },
+        {
+          Pattern = "<GL_ONE_MINUS_SRC_ALPHA>";
+          ForegroundColor = "1.0 0.627 0.627";
+          Bold = YES;
+        },
+        {
+          Pattern = "<GL_DST_ALPHA>";
+          ForegroundColor = "1.0 0.627 0.627";
+          Bold = YES;
+        },
+        {
+          Pattern = "<GL_ONE_MINUS_DST_ALPHA>";
+          ForegroundColor = "1.0 0.627 0.627";
+          Bold = YES;
+        },
+        {
+          Pattern = "<GL_CONSTANT_COLOR>";
+          ForegroundColor = "1.0 0.627 0.627";
+          Bold = YES;
+        },
+        {
+          Pattern = "<GL_ONE_MINUS_CONSTANT_COLOR>";
+          ForegroundColor = "1.0 0.627 0.627";
+          Bold = YES;
+        },
+        {
+          Pattern = "<GL_CONSTANT_ALPHA>";
+          ForegroundColor = "1.0 0.627 0.627";
+          Bold = YES;
+        },
+        {
+          Pattern = "<GL_ONE_MINUS_CONSTANT_ALPHA>";
+          ForegroundColor = "1.0 0.627 0.627";
+          Bold = YES;
+        },
+        // misc
+        {
+          Pattern = "<\\.\\.\\.>";
+          ForegroundColor = "0.6 0.45 0.75";
+          Bold = YES;
+        }
+      );
+    },
+
+    /* string */
+    {
+      Beginning = "\"";
+      Ending = "\"";
+      ContextSkips = (
+        "\\\\\\\\",
+        "\\\\\""
+      );
+      ForegroundColor = "1.0 0.627 0.627";
+      Keywords = (
+        {
+          Pattern = "\\\\\\\\";
+          ForegroundColor = "0 1 0";
+          Bold = YES;
+        },
+        {
+          Pattern = "\\\\[0123456789]{3}";
+          ForegroundColor = "0 1 0";
+          Bold = YES;
+        },
+        {
+          Pattern = "\\\\0";
+          ForegroundColor = "0 1 0";
+          Bold = YES;
+        },
+        {
+          Pattern = "\\\\\"";
+          ForegroundColor = "0 1 0";
+          Bold = YES;
+        },
+        {
+          Pattern = "\\\\[ntfb]";
+          ForegroundColor = "0 1 0";
+          Bold = YES;
+        },
+        {
+          Pattern = "%ll[iu]";
+          ForegroundColor = "0 1 0";
+          Bold = YES;
+        },
+        {
+          Pattern = "%[0123456789]*\\.?[0123456789]*l?[%cdefginosupxX]";
+          ForegroundColor = "0 1 0";
+          Bold = YES;
+        }
+      );
+    },
+
+    /* character constant */
+    {
+      Beginning = "'"; 
+      Ending = "'";
+      ContextSkips = (
+        "\\\\\\\\",
+        "\\\\'"
+      );
+      ForegroundColor = "1.0 0.627 0.627";
+    },
+
+    /* preproc directive */
+    {
+      Beginning = "^#";
+      Ending = "\n";
+      ContextSkips = (
+        "\\\\\n"
+      );
+      ForegroundColor = "1.0 0.5 1.0";
+      Bold = YES;
+    },
+
+    /* multi-line comment */
+    {
+      Beginning = "/\\*";
+      Ending = "\\*/";
+      ForegroundColor = "0.502 0.627 1.0";
+      Italic = YES;
+      Keywords = (
+        {
+          Pattern = "<TODO>";
+          ForegroundColor = "0.8 0.1 0.1";
+          Bold = YES;
+        }
+      );
+    },
+
+    /* inline comment */
+    {
+      Beginning = "//";
+      Ending = "\n";
+      ForegroundColor = "0.502 0.627 1.0";
+      Italic = YES;
+      Keywords = (
+        {
+          Pattern = "<TODO>";
+          ForegroundColor = "0.8 0.1 0.1";
+          Bold = YES;
+        }
+      );
+    }
+  );
+}
+

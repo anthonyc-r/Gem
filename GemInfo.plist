@@ -15,6 +15,7 @@
   NSPrincipalClass = NSApplication;
   NSRole = Editor;
   URL = "home.gna.org/gnustep-nonfsf/gemas.html";
+  CFBundleIdentifier = "org.eukara.Gem";
   NSTypes = (
     {
       NSName = "ObjC";
@@ -163,7 +164,7 @@
     {
       NSName = "Q3AShader";
       NSHumanReadableName = "Trinity shader file";
-      NSIcon = "FileIcon_.mat.tiff";
+      NSIcon = "FileIcon_.shader.tiff";
       NSUnixExtensions = ( shader );
       NSDOSExtensions = ( shader );
       NSRole = Editor;
