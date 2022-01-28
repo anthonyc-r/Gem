@@ -1,0 +1,7 @@
+Gem is a simple editor app, based off of the source code for Gemas 0.4, which you can find here:
+
+http://wiki.gnustep.org/index.php/Gemas.app
+
+Currently this just removes some implicit file edits for 'emacs mode', I think  modifications like this should absolutely be avoided. Additionally it adds support for real tabs, and variable tab widths (if set to use spaces, it will use this number of spaces instead).
+
+Going forward, I intend to add more flexible editor options, such as;  enable/disable autoindent, per-filetype preferences, line numbers. I'll also take a look at improving performance if possible.
