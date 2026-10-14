@@ -1,0 +1,62 @@
+{
+    "## Comment" = "Do NOT change this file, Gorm maintains it";
+    FirstResponder = {
+	Actions = (
+	    "changeAutosavingDelay:",
+	    "changeBackgroundColor:",
+	    "changeCursorColor:",
+	    "changeEditorHeight:",
+	    "changeEditorWidth:",
+	    "changeFontName:",
+	    "changeFontSize:",
+	    "changeHighlighterTheme:",
+	    "changeIndentation:",
+	    "changeSelectionColor:",
+	    "changeTabConversion:",
+	    "changeTabWidth:",
+	    "changeTextColor:",
+	    "changeAutoIndentEnabled:",
+	    "restoreDefaults:"
+	);
+	Super = NSObject;
+    };
+    GemasController = {
+	Actions = (
+	    "changeTabConversion:",
+	    "changeBackgroundColor:",
+	    "changeCursorColor:",
+	    "changeTextColor:",
+	    "changeIndentation:",
+	    "changeFontName:",
+	    "changeSelectionColor:",
+	    "changeFontSize:",
+	    "changeEditorHeight:",
+	    "changeEditorWidth:",
+	    "changeAutosavingDelay:",
+	    "restoreDefaults:",
+	    "changeHighlighterTheme:",
+	    "changeTabWidth:",
+	    "changeAutoIndentEnabled:"
+	);
+	Outlets = (
+	    tabConversion,
+	    backgroundColor,
+	    cursorColor,
+	    textColor,
+	    indentation,
+	    preferencesPanel,
+	    fontName,
+	    fontSize,
+	    selectionColor,
+	    autosavingDelay,
+	    editorHeight,
+	    editorWidth,
+	    autosavingDelayStepper,
+	    highlighterTheme,
+	    fontSizeStepper,
+	    tabWidth,
+	    autoIndent
+	);
+	Super = NSObject;
+    };
+}
