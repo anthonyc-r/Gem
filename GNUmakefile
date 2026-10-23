@@ -9,14 +9,15 @@ Gem_APPLICATION_ICON = Gemas.tiff
 
 # Languages
 Gem_LANGUAGES = \
-  English
+  English French
 
 Gem_LOCALIZED_RESOURCE_FILES = \
 Gem.gorm \
 Editor.gorm \
 Preferences.gorm \
 GoToLine.gorm \
-Localizable.strings
+Localizable.strings \
+InfoPlist.strings
 
 # Resource files
 Gem_RESOURCE_FILES = \

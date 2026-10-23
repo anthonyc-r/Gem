@@ -608,6 +608,7 @@
   
   [preferencesPanel close];
   DESTROY(preferencesPanel);
+  NSLog(@"Defaults restored. Panel closed.");
 }
 
 //Tools

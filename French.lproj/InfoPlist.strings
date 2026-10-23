@@ -1,0 +1,4 @@
+/* Gem: Info Panel Localizablestrings */
+
+ApplicationDescription = "Un simple éditeur de code pour GNUstep";
+CopyrightDescription = "Distribué sous licence GPLv3";
