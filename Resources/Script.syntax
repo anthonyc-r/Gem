@@ -1,0 +1,377 @@
+/*
+ * Highlighting rules for Shell Script files of the HighlighterKit framework.
+ */
+{
+  Contexts = (
+    {
+      // Green
+      Keywords = (
+        {
+          Pattern = "if\\ ";
+          ForegroundColor = "0 1 0";
+          Bold = YES;
+        },
+        {
+          Pattern = "then";
+          ForegroundColor = "0 1 0";
+          Bold = YES;
+        },
+        {
+          Pattern = "else";
+          ForegroundColor = "0 1 0";
+          Bold = YES;
+        },
+        {
+          Pattern = "esac";
+          ForegroundColor = "0 1 0";
+          Bold = YES;
+        },
+        {
+          Pattern = "for";
+          ForegroundColor = "0 1 0";
+          Bold = YES;
+        },
+        {
+          Pattern = "while";
+          ForegroundColor = "0 1 0";
+          Bold = YES;
+        },
+        {
+          Pattern = "done\n";
+          ForegroundColor = "0 1 0";
+          Bold = YES;
+        },
+        {
+          Pattern = "do[\n,\\ ]";
+          ForegroundColor = "0 1 0";
+          Bold = YES;
+        },
+        {
+          Pattern = "case";
+          ForegroundColor = "0 1 0";
+          Bold = YES;
+        },
+        {
+          Pattern = "exit";
+          ForegroundColor = "0 1 0";
+          Bold = YES;
+        },
+        {
+          Pattern = "\\[\\ ";
+          ForegroundColor = "0 1 0";
+          Bold = YES;
+        },
+        {
+          Pattern = "\\]";
+          ForegroundColor = "0 1 0";
+          Bold = YES;
+        },
+        {
+          Pattern = "=";
+          ForegroundColor = "0 1 0";
+          Bold = YES;
+        },
+        {
+          Pattern = ")";
+          ForegroundColor = "0 1 0";
+          Bold = YES;
+        },
+        {
+          Pattern = "(";
+          ForegroundColor = "0 1 0";
+          Bold = YES;
+        },
+        {
+          Pattern = "\\}";
+          ForegroundColor = "0 1 0";
+          Bold = YES;
+        },
+        {
+          Pattern = "\\{";
+          ForegroundColor = "0 1 0";
+          Bold = YES;
+        },
+
+        // Red
+        {
+          Pattern = "|";
+          ForegroundColor = "1 0 0";
+          Bold = YES;
+        },
+        {
+          Pattern = "&";
+          ForegroundColor = "1 0 0";
+          Bold = YES;
+        },
+        {
+          Pattern = "!";
+          ForegroundColor = "1 0 0";
+          Bold = YES;
+        },
+        {
+          Pattern = ":";
+          ForegroundColor = "1 0 0";
+          Bold = YES;
+        },
+        {
+          Pattern = ";";
+          ForegroundColor = "1 0 0";
+          Bold = YES;
+        },
+        {
+          Pattern = "`";
+          ForegroundColor = "1 0 0";
+          Bold = YES;
+        },
+        // Aquamarine
+        {
+          Pattern = "mkdir";
+          ForegroundColor = "0 0.5 0.50";
+          Bold = YES;
+        },
+        {
+          Pattern = "sudo";
+          ForegroundColor = "0 0.5 0.50";
+          Bold = YES;
+        },
+        {
+          Pattern = "cd";
+          ForegroundColor = "0 0.5 0.50";
+          Bold = YES;
+        },
+        {
+          Pattern = "cp";
+          ForegroundColor = "0 0.5 0.50";
+          Bold = YES;
+        },
+        {
+          Pattern = "chmod";
+          ForegroundColor = "0 0.5 0.50";
+          Bold = YES;
+        },
+        {
+          Pattern = "make";
+          ForegroundColor = "0 0.5 0.50";
+          Bold = YES;
+        },
+        {   
+          Pattern = "find";
+          ForegroundColor = "0 0.5 0.50";
+          Bold = YES;
+        },
+        {
+          Pattern = "sleep";
+          ForegroundColor = "0 0.5 0.50";
+          Bold = YES;
+        },
+        {
+          Pattern = "echo";
+          ForegroundColor = "0 0.5 0.50";
+          Bold = YES;
+        },
+        {
+          Pattern = "printf";
+          ForegroundColor = "0 0.5 0.50";
+          Bold = YES;
+        },
+        {
+          Pattern = "grep";
+          ForegroundColor = "0 0.5 0.50";
+          Bold = YES;
+        },
+        {
+          Pattern = "awk";
+          ForegroundColor = "0 0.5 0.50";
+          Bold = YES;
+        },
+        {
+          Pattern = "pushd";
+          ForegroundColor = "0 0.5 0.50";
+          Bold = YES;
+        },
+        {
+          Pattern = "popd";
+          ForegroundColor = "0 0.5 0.50";
+          Bold = YES;
+        },
+        {
+          Pattern = "clear";
+          ForegroundColor = "0 0.5 0.50";
+          Bold = YES;
+        },
+        {
+          Pattern = "mktemp";
+          ForegroundColor = "0 0.5 0.50";
+          Bold = YES;
+        },
+        {
+          Pattern = "trap";
+          ForegroundColor = "0 0.5 0.50";
+          Bold = YES;
+        },
+        {
+          Pattern = "function";
+          ForegroundColor = "0 0.5 0.50";
+          Bold = YES;
+        },
+        {
+          Pattern = "cat";
+          ForegroundColor = "0 0.5 0.50";
+          Bold = YES;
+        },
+        {
+          Pattern = "git";
+          ForegroundColor = "0 0.5 0.50";
+          Bold = YES;
+        },
+        {
+          Pattern = "which";
+          ForegroundColor = "0 0.5 0.50";
+          Bold = YES;
+        },
+        {
+          Pattern = "bash\\ ";
+          ForegroundColor = "0 0.5 0.50";
+          Bold = YES;
+        },
+        /* Begin GNUstep specific */
+        {
+          Pattern = "gnustep-config";
+          ForegroundColor = "0 0.5 0.50";
+          Bold = YES;
+        },
+        {
+          Pattern = "openapp";
+          ForegroundColor = "0 0.5 0.50";
+          Bold = YES;
+        },
+        /* Begin Agnostep specific */
+        {
+          Pattern = "alert";
+          ForegroundColor = "0 0.5 0.50";
+          Bold = YES;
+        },{
+          Pattern = "warning";
+          ForegroundColor = "0 0.5 0.50";
+          Bold = YES;
+        },
+        {
+          Pattern = "info";
+          ForegroundColor = "0 0.5 0.50";
+          Bold = YES;
+        },
+        {
+          Pattern = "titulo";
+          ForegroundColor = "0 0.5 0.50";
+          Bold = YES;
+        },
+        {
+          Pattern = "subtitulo";
+          ForegroundColor = "0 0.5 0.50";
+          Bold = YES;
+        },
+        {
+          Pattern = "ok";
+          ForegroundColor = "0 0.5 0.50";
+          Bold = YES;
+        },
+        {
+          Pattern = "check";
+          ForegroundColor = "0 0.5 0.50";
+          Bold = YES;
+        },
+        {
+          Pattern = "_build";
+          ForegroundColor = "0 0.5 0.50";
+          Bold = YES;
+        },
+        {  
+          Pattern = "spinner";
+          ForegroundColor = "0 0.5 0.50";
+          Bold = YES;
+        },
+        /* End of Agnostep specific */
+          {
+          Pattern = "install";
+          ForegroundColor = "0 0 0";
+          Bold = NO;
+        },
+        {
+          Pattern = "/";
+          ForegroundColor = "0 0 1";
+          Bold = NO;
+        },
+        /* In, fi must be here to avoid side effect with info, find... */
+        {
+          Pattern = "<in>";
+          ForegroundColor = "0 1 0";
+          Bold = YES;
+        },
+        {
+          Pattern = "<fi>";
+          ForegroundColor = "0 1 0";
+          Bold = YES;
+        }
+      );
+    },
+
+    /* Args */
+    {
+        Beginning = "-";
+        Ending = "[=,\\ ,\n]";
+        ForegroundColor = "1 0 1";
+        Bold = YES;
+    }, 
+
+    /* Path */
+    {
+        Beginning = "/";
+        Ending = "[\\ ,\n]";
+        ForegroundColor = "0 0 1";
+        Bold = NO;
+    },
+
+     /* Variable */
+    {
+        Beginning = "\\$";
+        Ending = "[(,/,\\ ,\n]";
+        ForegroundColor = "1 0 0";
+        Bold = YES;
+    },
+ 
+    /* String: double quotes */
+    {
+        Beginning = "\"";
+        Ending = "\"";
+        ForegroundColor = "1 0.5 0";
+        Bold = YES;
+    },
+
+    /* String: simple quotes */
+    {
+        Beginning = "'";
+        Ending = "'";
+        ForegroundColor = "1 0.5 0";
+        Bold = YES;
+    },
+
+    /* Shebang */
+    {
+        Beginning = "#!";
+        Ending = "\n";
+        ForegroundColor = "1 0 1";
+        Bold = YES;
+    },
+
+    /* Commented line */
+    {
+        Beginning = "#";
+        Ending = "\n";
+        ContextSkips = (
+        "\\\\\n"
+        );
+        ForegroundColor = "0 0 1";
+        Bold = YES;
+    }
+  );
+}

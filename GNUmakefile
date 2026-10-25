@@ -48,6 +48,7 @@ Resources/QuakeC.syntax \
 Resources/GLSL.syntax \
 Resources/Material.syntax \
 Resources/Q3AShader.syntax \
+Resources/Script.syntax \
 Resources/words.plist
 
 
